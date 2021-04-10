@@ -7,6 +7,8 @@ import com.deyanm.hisar.model.Place;
 import com.deyanm.hisar.model.PlaceResponse;
 import com.deyanm.hisar.network.ApiService;
 
+import java.util.ArrayList;
+
 import javax.inject.Inject;
 
 import io.reactivex.rxjava3.core.Observable;
@@ -24,7 +26,7 @@ public class Repository {
         this.hisarDao = hisarDao;
     }
 
-    public Observable<PlaceResponse> getPlaces() {
+    public Observable<ArrayList<Place>> getPlaces() {
         return apiService.getPlaces();
     }
 

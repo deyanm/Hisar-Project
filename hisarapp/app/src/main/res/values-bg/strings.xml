@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Хисар</string>
+    <string name="title_activity_settings">Настройки</string>
+    <string name="title_activity_map">Карта</string>
+    <string name="settings_general">Основни</string>
+    <string name="demo_account">Петър Петров</string>
+    <string name="demo_email">example@gmail.com</string>
+    <string name="notifications">Известия</string>
+    <string name="language">Език</string>
+    <string name="currency">Валута</string>
+    <string name="settings_payments">Плащания</string>
+    <string name="privacy_policy">Политика за поверителност</string>
+    <string name="terms">Условия за ползване</string>
+    <string name="payment_method">Метод за плащане</string>
+    <string name="exit">Изход</string>
+    <string name="title_activity_main">Начало</string>
+    <string name="title_activity_info">Информация</string>
+    <string name="title_activity_more">Още</string>
+    <string name="title_activity_restaurants">Ресторанти</string>
+    <string name="title_activity_hotels">Хотели</string>
+    <string name="title_activity_gallery">Галерия</string>
+    <string name="title_activity_about">За МИГ</string>
+</resources>

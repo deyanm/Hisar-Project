@@ -1,7 +1,9 @@
 package com.deyanm.hisar.network;
 
+import com.deyanm.hisar.model.Place;
 import com.deyanm.hisar.model.PlaceResponse;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import io.reactivex.rxjava3.core.Observable;
@@ -15,8 +17,8 @@ public interface ApiService {
     @POST("login")
     Observable<PlaceResponse> postLogin(@Body HashMap<String, String> body);
 
-    @GET("place")
-    Observable<PlaceResponse> getPlaces();
+    @GET("places")
+    Observable<ArrayList<Place>> getPlaces();
 
     @GET("place")
     Observable<PlaceResponse> getPlace(@Query("id") String id);

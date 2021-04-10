@@ -9,12 +9,22 @@ public class Place {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String name;
+    private String address;
+    private String image_url;
 
-    private String url;
-
-    public Place(String name, String url) {
+    public Place(int id, String name, String address, String image_url) {
+        this.id = id;
         this.name = name;
-        this.url = url;
+        this.address = address;
+        this.image_url = image_url;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -25,19 +35,19 @@ public class Place {
         this.name = name;
     }
 
-    public String getUrl() {
-        return url;
+    public String getAddress() {
+        return address;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public int getId() {
-        return id;
+    public String getImage_url() {
+        return image_url;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
     }
 }

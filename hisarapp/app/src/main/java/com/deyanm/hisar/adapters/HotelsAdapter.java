@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.deyanm.hisar.databinding.ListItemBinding;
 import com.deyanm.hisar.model.Hotel;
 
@@ -34,8 +33,7 @@ public class HotelsAdapter extends RecyclerView.Adapter<HotelsAdapter.PokemonVie
     @Override
     public void onBindViewHolder(@NonNull PokemonViewHolder holder, int position) {
         holder.itemBinding.hotelName.setText(mList.get(position).getName());
-        Glide.with(mContext).load(mList.get(position).getUrl())
-                .into(holder.itemBinding.hotelImage);
+//        Glide.with(mContext).load(mList.get(position).getUrl()).into(holder.itemBinding.hotelImage);
     }
 
     @Override

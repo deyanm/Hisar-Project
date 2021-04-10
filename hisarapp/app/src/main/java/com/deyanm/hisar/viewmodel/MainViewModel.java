@@ -7,13 +7,11 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.deyanm.hisar.model.Place;
-import com.deyanm.hisar.model.PlaceResponse;
 import com.deyanm.hisar.repository.Repository;
 
 import java.util.ArrayList;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.functions.Function;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MainViewModel extends ViewModel {
@@ -31,21 +29,11 @@ public class MainViewModel extends ViewModel {
         return placesList;
     }
 
-    public void getPokemons() {
+    public void getPlaces() {
         repository.getPlaces()
                 .subscribeOn(Schedulers.io())
-                .map(new Function<PlaceResponse, ArrayList<Place>>() {
-                    @Override
-                    public ArrayList<Place> apply(PlaceResponse pokemonResponse) throws Throwable {
-                        ArrayList<Place> list = pokemonResponse.getResults();
-                        for (Place place : list) {
-                            String url = place.getUrl();
-                            String[] pokemonIndex = url.split("/");
-                            place.setUrl("https://pokeres.bastionbot.org/images/pokemon/" + pokemonIndex[pokemonIndex.length - 1] + ".png");
-                        }
-                        Log.e(TAG, "apply: " + list.get(2).getUrl());
-                        return list;
-                    }
+                .map(placeResponse -> {
+                    return placeResponse;
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> placesList.setValue(result),
