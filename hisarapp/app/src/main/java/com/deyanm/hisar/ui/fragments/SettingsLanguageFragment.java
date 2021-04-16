@@ -10,22 +10,24 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.deyanm.hisar.databinding.FragmentNotificationsBinding;
+import com.deyanm.hisar.databinding.FragmentLanguageBinding;
 import com.deyanm.hisar.viewmodel.SettingsViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class SettingsNotificationsFragment extends Fragment {
+public class SettingsLanguageFragment extends Fragment {
 
-    private static final String TAG = SettingsNotificationsFragment.class.getSimpleName();
-    private FragmentNotificationsBinding binding;
-    private SettingsViewModel viewModel;
+    private FragmentLanguageBinding binding;
+    private SettingsViewModel mViewModel;
 
-    @Nullable
+    public static SettingsLanguageFragment newInstance() {
+        return new SettingsLanguageFragment();
+    }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
+        binding = FragmentLanguageBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -33,7 +35,8 @@ public class SettingsNotificationsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
-
+        mViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
+//        mViewModel.updateActionBarTitle(getString(R.string.title_language));
     }
+
 }

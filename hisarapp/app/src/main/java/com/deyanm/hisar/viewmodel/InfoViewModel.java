@@ -9,20 +9,14 @@ import com.deyanm.hisar.repository.Repository;
 
 import java.util.ArrayList;
 
-public class SettingsViewModel extends ViewModel {
-    private static final String TAG = SettingsViewModel.class.getSimpleName();
+public class InfoViewModel extends ViewModel {
+    private static final String TAG = InfoViewModel.class.getSimpleName();
 
     private Repository repository;
     private MutableLiveData<ArrayList<Place>> placesList = new MutableLiveData<>();
 
-    private MutableLiveData<CharSequence> title = new MutableLiveData<>();
-
-    public MutableLiveData<CharSequence> getTitle() {
-        return title;
-    }
-
     @ViewModelInject
-    public SettingsViewModel(Repository repository) {
+    public InfoViewModel(Repository repository) {
         this.repository = repository;
     }
 
@@ -30,7 +24,4 @@ public class SettingsViewModel extends ViewModel {
         return placesList;
     }
 
-    public void updateActionBarTitle(String title) {
-        getTitle().setValue(title);
-    }
 }

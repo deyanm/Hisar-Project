@@ -25,13 +25,13 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.deyanm.hisar.R;
 import com.deyanm.hisar.databinding.ActivityMainBinding;
+import com.deyanm.hisar.utils.Utils;
 import com.deyanm.hisar.viewmodel.MainViewModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.List;
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
-        setContentView(R.layout.activity_main);
+        setContentView(binding.getRoot());
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.title_activity_main);
@@ -70,11 +70,11 @@ public class MainActivity extends AppCompatActivity {
         } else {
             checkLocationPermission();
         }
-        viewModel.getPlacesList().observe(this, places -> {
-            Log.e(TAG, "onChanged: " + places.size());
-            Picasso.get().load(places.get(0).getImage_url()).into(binding.image1);
-        });
-        viewModel.getPlaces();
+//        viewModel.getPlacesList().observe(this, places -> {
+//            Log.e(TAG, "onChanged: " + places.size());
+//            Picasso.get().load(places.get(0).getImage_url()).into(binding.image1);
+//        });
+//        viewModel.getPlaces();
     }
 
     private void checkLocationPermission() {
@@ -145,6 +145,18 @@ public class MainActivity extends AppCompatActivity {
         binding.hotelsBtn.setOnClickListener(v -> {
             startActivity(new Intent(this, HotelsActivity.class));
         });
+        binding.infoBtn.setOnClickListener(v -> {
+            startActivity(new Intent(this, InfoActivity.class));
+        });
+        binding.button1.setStrokeWidth(Utils.dp2px(MainActivity.this.getResources(), 3));
+        binding.button1.setOnClickListener(v -> {
+            binding.button1.setStrokeWidth(Utils.dp2px(MainActivity.this.getResources(), 3));
+            binding.button2.setStrokeWidth(0);
+        });
+        binding.button2.setOnClickListener(v -> {
+            binding.button2.setStrokeWidth(Utils.dp2px(MainActivity.this.getResources(), 3));
+            binding.button1.setStrokeWidth(0);
+        });
     }
 
     @Override
@@ -192,4 +204,5 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
+
 }

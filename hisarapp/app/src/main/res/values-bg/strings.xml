@@ -21,4 +21,6 @@
     <string name="title_activity_hotels">Хотели</string>
     <string name="title_activity_gallery">Галерия</string>
     <string name="title_activity_about">За МИГ</string>
+    <string name="auto_lang">Автоматичен</string>
+    <string name="allow_notifications">Разреши известия</string>
 </resources>

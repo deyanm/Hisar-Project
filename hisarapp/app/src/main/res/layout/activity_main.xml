@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.MainActivity"
     android:fitsSystemWindows="true"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".ui.MainActivity">
 
     <include layout="@layout/toolbar" />
 
@@ -19,12 +19,13 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_margin="20dp"
+            android:clickable="true"
+            android:elevation="0dp"
             app:cardCornerRadius="10dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:strokeColor="@color/orange_primary"
-            app:strokeWidth="3dp">
+            app:strokeColor="@color/colorPrimary">
 
             <ImageView
                 android:id="@+id/image1"
@@ -44,12 +45,13 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_margin="20dp"
+            android:clickable="true"
+            android:elevation="0dp"
             app:cardCornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/guideline"
             app:layout_constraintTop_toTopOf="parent"
-            app:strokeColor="@color/orange_primary"
-            app:strokeWidth="3dp" />
+            app:strokeColor="@color/colorPrimary" />
 
         <LinearLayout
             android:id="@+id/linearLayout1"
@@ -75,12 +77,13 @@
                     android:layout_margin="0dp"
                     android:minWidth="0dp"
                     android:minHeight="0dp"
-                    app:backgroundTint="@color/orange_primary"
+                    app:backgroundTint="@color/colorPrimary"
                     app:cornerRadius="10dp"
                     app:elevation="0dp"
                     app:icon="@mipmap/map"
                     app:iconGravity="textStart"
-                    app:iconPadding="0dp" />
+                    app:iconPadding="0dp"
+                    app:iconSize="30dp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -106,12 +109,13 @@
                     android:layout_margin="0dp"
                     android:minWidth="0dp"
                     android:minHeight="0dp"
-                    app:backgroundTint="@color/orange_primary"
+                    app:backgroundTint="@color/colorPrimary"
                     app:cornerRadius="10dp"
                     app:elevation="0dp"
                     app:icon="@mipmap/information"
                     app:iconGravity="textStart"
-                    app:iconPadding="0dp" />
+                    app:iconPadding="0dp"
+                    app:iconSize="30dp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -137,12 +141,13 @@
                     android:layout_margin="0dp"
                     android:minWidth="0dp"
                     android:minHeight="0dp"
-                    app:backgroundTint="@color/orange_primary"
+                    app:backgroundTint="@color/colorPrimary"
                     app:cornerRadius="10dp"
                     app:elevation="0dp"
                     app:icon="@mipmap/attach"
                     app:iconGravity="textStart"
-                    app:iconPadding="0dp" />
+                    app:iconPadding="0dp"
+                    app:iconSize="30dp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -180,12 +185,13 @@
                     android:layout_margin="0dp"
                     android:minWidth="0dp"
                     android:minHeight="0dp"
-                    app:backgroundTint="@color/orange_primary"
+                    app:backgroundTint="@color/colorPrimary"
                     app:cornerRadius="10dp"
                     app:elevation="0dp"
                     app:icon="@mipmap/bed"
                     app:iconGravity="textStart"
-                    app:iconPadding="0dp" />
+                    app:iconPadding="0dp"
+                    app:iconSize="30dp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -211,12 +217,13 @@
                     android:layout_margin="0dp"
                     android:minWidth="0dp"
                     android:minHeight="0dp"
-                    app:backgroundTint="@color/orange_primary"
+                    app:backgroundTint="@color/colorPrimary"
                     app:cornerRadius="10dp"
                     app:elevation="0dp"
                     app:icon="@mipmap/restaurant"
                     app:iconGravity="textStart"
-                    app:iconPadding="0dp" />
+                    app:iconPadding="0dp"
+                    app:iconSize="30dp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -240,12 +247,13 @@
                     android:layout_height="80dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="0dp"
-                    app:backgroundTint="@color/orange_primary"
+                    app:backgroundTint="@color/colorPrimary"
                     app:cornerRadius="10dp"
                     app:elevation="0dp"
                     app:icon="@mipmap/gate"
                     app:iconGravity="textStart"
-                    app:iconPadding="0dp" />
+                    app:iconPadding="0dp"
+                    app:iconSize="30dp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -283,12 +291,13 @@
                     android:layout_margin="0dp"
                     android:minWidth="0dp"
                     android:minHeight="0dp"
-                    app:backgroundTint="@color/orange_primary"
+                    app:backgroundTint="@color/colorPrimary"
                     app:cornerRadius="10dp"
                     app:elevation="0dp"
                     app:icon="@mipmap/more"
                     app:iconGravity="textStart"
-                    app:iconPadding="0dp" />
+                    app:iconPadding="0dp"
+                    app:iconSize="30dp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -312,7 +321,7 @@
                     android:layout_height="80dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="0dp"
-                    app:backgroundTint="@color/orange_primary"
+                    app:backgroundTint="@color/colorPrimary"
                     app:cornerRadius="10dp"
                     app:elevation="0dp" />
 
@@ -338,7 +347,7 @@
                     android:layout_height="80dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="0dp"
-                    app:backgroundTint="@color/orange_primary"
+                    app:backgroundTint="@color/colorPrimary"
                     app:cornerRadius="10dp"
                     app:elevation="0dp" />
 

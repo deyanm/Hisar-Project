@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/settings">
+
+    <navigation
+        android:id="@+id/settings"
+        app:startDestination="@id/settingsActivityFragment">
+        <fragment
+            android:id="@+id/settingsActivityFragment"
+            android:label="SettingsActivityFragment"
+            android:name="com.deyanm.hisar.ui.fragments.SettingsActivityFragment"
+            tools:layout="@layout/fragment_settings">
+            <action
+                android:id="@+id/action_settingsActivityFragment_to_settingsNotificationsFragment"
+                app:destination="@id/settingsNotificationsFragment" />
+            <action
+                android:id="@+id/action_settingsActivityFragment_to_settingsLanguageFragment"
+                app:destination="@id/settingsLanguageFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/settingsNotificationsFragment"
+            android:name="com.deyanm.hisar.ui.fragments.SettingsNotificationsFragment"
+            android:label="SettingsNotificationsFragment"
+            tools:layout="@layout/fragment_notifications" />
+        <fragment
+            android:id="@+id/settingsLanguageFragment"
+            android:name="com.deyanm.hisar.ui.fragments.SettingsLanguageFragment"
+            android:label="SettingsLanguageFragment"
+            tools:layout="@layout/fragment_language" />
+    </navigation>
+</navigation>

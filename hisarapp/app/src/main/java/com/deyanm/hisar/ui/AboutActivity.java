@@ -38,7 +38,7 @@ public class AboutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityAboutBinding.inflate(getLayoutInflater());
-        setContentView(R.layout.activity_about);
+        setContentView(binding.getRoot());
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.title_activity_about);
@@ -48,8 +48,8 @@ public class AboutActivity extends AppCompatActivity {
         viewPager2 = findViewById(R.id.viewPagerImageSlider);
 
         List<SliderItem> sliderItems = new ArrayList<>();
-        sliderItems.add(new SliderItem(R.drawable.image1));
         sliderItems.add(new SliderItem(R.drawable.image2));
+        sliderItems.add(new SliderItem(R.drawable.image1));
         sliderItems.add(new SliderItem(R.drawable.image3));
         sliderItems.add(new SliderItem(R.drawable.image4));
         sliderItems.add(new SliderItem(R.drawable.image5));
@@ -57,7 +57,7 @@ public class AboutActivity extends AppCompatActivity {
 
         viewPager2.setAdapter(new ImageSliderAdapter(sliderItems, viewPager2));
 
-        viewPager2.setCurrentItem(1, true);
+        viewPager2.setCurrentItem(0, true);
         viewPager2.setClipToPadding(false);
         viewPager2.setClipChildren(false);
         viewPager2.setOffscreenPageLimit(2);

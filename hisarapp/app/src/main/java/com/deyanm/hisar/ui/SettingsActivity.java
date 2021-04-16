@@ -6,10 +6,10 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.deyanm.hisar.R;
 import com.deyanm.hisar.databinding.ActivitySettingsBinding;
-import com.deyanm.hisar.ui.fragments.SettingsActivityFragment;
 import com.deyanm.hisar.viewmodel.SettingsViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -23,6 +23,7 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivitySettingsBinding.inflate(getLayoutInflater());
+        viewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
         setContentView(binding.getRoot());
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -30,7 +31,9 @@ public class SettingsActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(R.string.title_activity_settings);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new SettingsActivityFragment()).commit();
+        viewModel.getTitle().observe(this, charSequence -> {
+            getSupportActionBar().setTitle(charSequence.toString());
+        });
 
     }
 
@@ -42,5 +45,4 @@ public class SettingsActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

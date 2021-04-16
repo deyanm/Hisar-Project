@@ -15,9 +15,11 @@
     <string name="terms">Terms and conditions</string>
     <string name="payment_method">Payment method</string>
     <string name="exit">Exit</string>
+    <string name="auto_lang">Automatic</string>
     <string name="title_activity_info">Information</string>
     <string name="title_activity_gallery">Gallery</string>
     <string name="title_activity_hotels">Hotels</string>
     <string name="title_activity_restaurants">Restaurants</string>
     <string name="title_activity_more">More</string>
+    <string name="allow_notifications">Allow notifications</string>
 </resources>

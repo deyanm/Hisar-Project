@@ -9,30 +9,31 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.deyanm.hisar.R;
-import com.deyanm.hisar.databinding.ActivityHotelsBinding;
-import com.deyanm.hisar.viewmodel.HotelsViewModel;
+import com.deyanm.hisar.databinding.ActivityInfoBinding;
+import com.deyanm.hisar.viewmodel.InfoViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class HotelsActivity extends AppCompatActivity {
+public class InfoActivity extends AppCompatActivity {
 
-    ActivityHotelsBinding binding;
-    HotelsViewModel viewModel;
+    ActivityInfoBinding binding;
+    InfoViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityHotelsBinding.inflate(getLayoutInflater());
+        binding = ActivityInfoBinding.inflate(getLayoutInflater());
+        viewModel = new ViewModelProvider(this).get(InfoViewModel.class);
         setContentView(binding.getRoot());
 
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.title_activity_hotels);
+        toolbar.setTitle(R.string.title_activity_info);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
     }
 
     @Override

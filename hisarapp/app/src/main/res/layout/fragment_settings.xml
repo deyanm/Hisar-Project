@@ -6,15 +6,10 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <include
-        android:id="@+id/toolbar1"
-        layout="@layout/toolbar" />
-
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_above="@+id/exitBtn"
-        android:layout_below="@id/toolbar1"
         android:fillViewport="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -131,6 +126,7 @@
                     android:background="#CCCCCC" />
 
                 <RelativeLayout
+                    android:id="@+id/languageLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp">
