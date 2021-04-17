@@ -1,6 +1,7 @@
 package com.deyanm.hisar.ui;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -33,11 +34,14 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
 import dagger.hilt.android.AndroidEntryPoint;
+import okio.BufferedSink;
+import okio.Okio;
 
 @AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
@@ -75,6 +79,23 @@ public class MainActivity extends AppCompatActivity {
 //            Picasso.get().load(places.get(0).getImage_url()).into(binding.image1);
 //        });
 //        viewModel.getPlaces();
+        viewModel.getVersion().observe(this, version -> {
+            Log.d(TAG, "" + version);
+        });
+        viewModel.getVersions();
+        viewModel.getFileResponse().observe(this, fileResponse -> {
+            try {
+                File directory = getApplicationContext().getDir(getFilesDir().getName(), Context.MODE_PRIVATE);
+                File file =  new File(directory,"db.json");
+
+                BufferedSink bufferedSink = Okio.buffer(Okio.sink(file));
+                bufferedSink.writeAll(fileResponse.source());
+                bufferedSink.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        viewModel.downloadFile("https://raw.githubusercontent.com/deyanm/hisarserver/main/db.json");
     }
 
     private void checkLocationPermission() {
@@ -84,10 +105,6 @@ public class MainActivity extends AppCompatActivity {
             // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.ACCESS_FINE_LOCATION)) {
-
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
                 new AlertDialog.Builder(this)
                         .setTitle("Location Permission Needed")
                         .setMessage("This app needs the Location permission, please accept to use location functionality")

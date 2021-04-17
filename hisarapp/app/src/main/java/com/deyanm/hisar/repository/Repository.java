@@ -12,13 +12,14 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import io.reactivex.rxjava3.core.Observable;
+import okhttp3.ResponseBody;
+import retrofit2.Response;
 
 public class Repository {
     private static final String TAG = Repository.class.getSimpleName();
 
     ApiService apiService;
     HisarDao hisarDao;
-
 
     @Inject
     public Repository(ApiService apiService, HisarDao hisarDao) {
@@ -28,6 +29,14 @@ public class Repository {
 
     public Observable<ArrayList<Place>> getPlaces() {
         return apiService.getPlaces();
+    }
+
+    public Observable<ResponseBody> getVersions() {
+        return apiService.getVersions();
+    }
+
+    public Observable<Response<ResponseBody>> getFile(String url) {
+        return apiService.downloadFile(url);
     }
 
     public Observable<PlaceResponse> getPlace(String id) {

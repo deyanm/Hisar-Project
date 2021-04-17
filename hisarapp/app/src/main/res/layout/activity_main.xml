@@ -21,6 +21,7 @@
             android:layout_margin="20dp"
             android:clickable="true"
             android:elevation="0dp"
+            android:focusable="true"
             app:cardCornerRadius="10dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline"
             app:layout_constraintStart_toStartOf="parent"
@@ -47,6 +48,7 @@
             android:layout_margin="20dp"
             android:clickable="true"
             android:elevation="0dp"
+            android:focusable="true"
             app:cardCornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/guideline"
@@ -59,105 +61,97 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
             android:layout_weight="1"
+            android:baselineAligned="false"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/button1">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+            <RelativeLayout
+                android:id="@+id/mapBtn"
+                android:layout_width="110dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:background="@drawable/home_button_bg"
+                android:orientation="vertical"
+                android:padding="15dp">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/mapBtn"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="0dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    app:backgroundTint="@color/colorPrimary"
-                    app:cornerRadius="10dp"
-                    app:elevation="0dp"
-                    app:icon="@mipmap/map"
-                    app:iconGravity="textStart"
-                    app:iconPadding="0dp"
-                    app:iconSize="30dp" />
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@mipmap/map" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="start"
                     android:text="@string/title_activity_map"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+            <RelativeLayout
+                android:id="@+id/infoBtn"
+                android:layout_width="110dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:background="@drawable/home_button_bg"
+                android:orientation="vertical"
+                android:padding="15dp">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/infoBtn"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="0dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    app:backgroundTint="@color/colorPrimary"
-                    app:cornerRadius="10dp"
-                    app:elevation="0dp"
-                    app:icon="@mipmap/information"
-                    app:iconGravity="textStart"
-                    app:iconPadding="0dp"
-                    app:iconSize="30dp" />
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@mipmap/information" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="start"
                     android:text="@string/title_activity_info"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+            <RelativeLayout
+                android:id="@+id/galleryBtn"
+                android:layout_width="110dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:background="@drawable/home_button_bg"
+                android:orientation="vertical"
+                android:padding="15dp">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/galleryBtn"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="0dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    app:backgroundTint="@color/colorPrimary"
-                    app:cornerRadius="10dp"
-                    app:elevation="0dp"
-                    app:icon="@mipmap/attach"
-                    app:iconGravity="textStart"
-                    app:iconPadding="0dp"
-                    app:iconSize="30dp" />
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@mipmap/attach" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="start"
                     android:text="@string/title_activity_gallery"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
-            </LinearLayout>
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -167,103 +161,97 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
             android:layout_weight="1"
+            android:baselineAligned="false"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/linearLayout1">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+            <RelativeLayout
+                android:id="@+id/hotelsBtn"
+                android:layout_width="110dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:background="@drawable/home_button_bg"
+                android:orientation="vertical"
+                android:padding="15dp">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/hotelsBtn"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="0dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    app:backgroundTint="@color/colorPrimary"
-                    app:cornerRadius="10dp"
-                    app:elevation="0dp"
-                    app:icon="@mipmap/bed"
-                    app:iconGravity="textStart"
-                    app:iconPadding="0dp"
-                    app:iconSize="30dp" />
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@mipmap/bed" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="start"
                     android:text="@string/title_activity_hotels"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+            <RelativeLayout
+                android:id="@+id/restBtn"
+                android:layout_width="110dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:background="@drawable/home_button_bg"
+                android:orientation="vertical"
+                android:padding="15dp">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/restBtn"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="0dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    app:backgroundTint="@color/colorPrimary"
-                    app:cornerRadius="10dp"
-                    app:elevation="0dp"
-                    app:icon="@mipmap/restaurant"
-                    app:iconGravity="textStart"
-                    app:iconPadding="0dp"
-                    app:iconSize="30dp" />
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@mipmap/restaurant" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="start"
                     android:text="@string/title_activity_restaurants"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+            <RelativeLayout
+                android:id="@+id/migBtn"
+                android:layout_width="110dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:background="@drawable/home_button_bg"
+                android:orientation="vertical"
+                android:padding="15dp">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/migBtn"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="0dp"
-                    app:backgroundTint="@color/colorPrimary"
-                    app:cornerRadius="10dp"
-                    app:elevation="0dp"
-                    app:icon="@mipmap/gate"
-                    app:iconGravity="textStart"
-                    app:iconPadding="0dp"
-                    app:iconSize="30dp" />
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@mipmap/gate" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="start"
                     android:text="@string/title_activity_about"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
-            </LinearLayout>
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -273,93 +261,97 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
             android:layout_weight="1"
+            android:baselineAligned="false"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/linearLayout2">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+            <RelativeLayout
+                android:id="@+id/moreBtn"
+                android:layout_width="110dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:background="@drawable/home_button_bg"
+                android:orientation="vertical"
+                android:padding="15dp">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/moreBtn"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="0dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    app:backgroundTint="@color/colorPrimary"
-                    app:cornerRadius="10dp"
-                    app:elevation="0dp"
-                    app:icon="@mipmap/more"
-                    app:iconGravity="textStart"
-                    app:iconPadding="0dp"
-                    app:iconSize="30dp" />
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@mipmap/more" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="start"
                     android:text="@string/title_activity_more"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+            <RelativeLayout
+                android:layout_width="110dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
                 android:layout_weight="1"
+                android:background="@drawable/home_button_bg"
                 android:orientation="vertical"
+                android:padding="15dp"
                 android:visibility="invisible">
 
-                <com.google.android.material.button.MaterialButton
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="0dp"
-                    app:backgroundTint="@color/colorPrimary"
-                    app:cornerRadius="10dp"
-                    app:elevation="0dp" />
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@mipmap/information" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="Карта"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="start"
+                    android:text="@string/title_activity_info"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+            <RelativeLayout
+                android:layout_width="110dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
                 android:layout_weight="1"
+                android:background="@drawable/home_button_bg"
                 android:orientation="vertical"
+                android:padding="15dp"
                 android:visibility="invisible">
 
-                <com.google.android.material.button.MaterialButton
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="0dp"
-                    app:backgroundTint="@color/colorPrimary"
-                    app:cornerRadius="10dp"
-                    app:elevation="0dp" />
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@mipmap/attach" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="Карта"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="start"
+                    android:text="@string/title_activity_gallery"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
-            </LinearLayout>
+            </RelativeLayout>
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
