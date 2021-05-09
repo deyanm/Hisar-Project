@@ -2,13 +2,13 @@ package com.deyanm.hisar.model;
 
 public class SliderItem {
 
-    private int image;
+    private String imageUrl;
 
-    public SliderItem(int image) {
-        this.image = image;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public int getImage() {
-        return image;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

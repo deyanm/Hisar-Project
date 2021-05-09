@@ -1,4 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">hisar-app</string>
+    <string name="title_activity_main">Acasă</string>
+    <string name="title_activity_map">Hartă</string>
+    <string name="title_activity_about">Despre MIG</string>
+    <string name="title_activity_settings">Setări</string>
+    <string name="settings_general">General</string>
+    <string name="notifications">Notificări</string>
+    <string name="language">Limbă</string>
+    <string name="currency">Valută</string>
+    <string name="settings_other">Alte</string>
+    <string name="privacy_policy">Politica de Confidențialitate</string>
+    <string name="terms">Termeni si conditii</string>
+    <string name="favourites">Favorite</string>
+    <string name="exit">Leșire</string>
+    <string name="auto_lang">Sistem</string>
+    <string name="title_activity_info">Info</string>
+    <string name="title_activity_places">Locuri</string>
+    <string name="title_activity_gallery">Galerie</string>
+    <string name="title_activity_hotels">Hoteluri</string>
+    <string name="title_activity_restaurants">Restaurante</string>
+    <string name="title_activity_more">Mai mult</string>
+    <string name="allow_notifications">Permiteți notificările</string>
+    <string name="directions">Directii</string>
+    <string name="more">Mai mult…</string>
+    <string name="share">Acțiune</string>
+    <string name="description">Descriere</string>
+    <string name="location">Locație</string>
+    <string name="english">Engleză</string>
+    <string name="bulgarian">Bulgară</string>
+    <string name="romanian">Română</string>
 </resources>

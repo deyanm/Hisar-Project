@@ -1,9 +1,7 @@
 package com.deyanm.hisar.network;
 
-import com.deyanm.hisar.model.Place;
-import com.deyanm.hisar.model.PlaceResponse;
+import com.deyanm.hisar.model.HisarResponse;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import io.reactivex.rxjava3.core.Observable;
@@ -14,23 +12,19 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 import retrofit2.http.Streaming;
-import retrofit2.http.Url;
 
 public interface ApiService {
 
-    @GET
+    @GET("db.json")
     @Streaming
-    Observable<Response<ResponseBody>> downloadFile(@Url String url);
+    Observable<Response<ResponseBody>> downloadFile();
 
     @POST("login")
-    Observable<PlaceResponse> postLogin(@Body HashMap<String, String> body);
+    Observable<HisarResponse> postLogin(@Body HashMap<String, String> body);
 
-    @GET("places")
-    Observable<ArrayList<Place>> getPlaces();
-
-    @GET("versions")
+    @GET("version.json")
     Observable<ResponseBody> getVersions();
 
     @GET("place")
-    Observable<PlaceResponse> getPlace(@Query("id") String id);
+    Observable<HisarResponse> getPlace(@Query("id") String id);
 }

@@ -1,43 +1,75 @@
 package com.deyanm.hisar.model;
 
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-@Entity(tableName = "hotel")
-public class Hotel {
+public class Hotel extends Poi {
 
-    @PrimaryKey(autoGenerate = true)
-    private int id;
-    private String name;
+    @SerializedName("maxPricePerNight")
+    @Expose
+    private Integer maxPricePerNight;
+    @SerializedName("maxPrice")
+    @Expose
+    private Integer maxPrice;
+    @SerializedName("price")
+    @Expose
+    private Integer price;
+    @SerializedName("popularity")
+    @Expose
+    private Integer popularity;
+    @SerializedName("stars")
+    @Expose
+    private Integer stars;
+    @SerializedName("rating")
+    @Expose
+    private Integer rating;
 
-    private String url;
-
-    public Hotel(String name, String url) {
-        this.name = name;
-        this.url = url;
+    public Integer getMaxPricePerNight() {
+        return maxPricePerNight;
     }
 
-    public String getName() {
-        return name;
+    public void setMaxPricePerNight(Integer maxPricePerNight) {
+        this.maxPricePerNight = maxPricePerNight;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Integer getMaxPrice() {
+        return maxPrice;
     }
 
-    public String getUrl() {
-        return url;
+    public void setMaxPrice(Integer maxPrice) {
+        this.maxPrice = maxPrice;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public Integer getPrice() {
+        return price;
     }
 
-    public int getId() {
-        return id;
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public Integer getPopularity() {
+        return popularity;
     }
+
+    public void setPopularity(Integer popularity) {
+        this.popularity = popularity;
+    }
+
+    public Integer getStars() {
+        return stars;
+    }
+
+    public void setStars(Integer stars) {
+        this.stars = stars;
+    }
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
+    }
+
 }

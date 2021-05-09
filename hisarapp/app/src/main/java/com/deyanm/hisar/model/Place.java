@@ -1,29 +1,34 @@
 package com.deyanm.hisar.model;
 
 import androidx.room.Entity;
-import androidx.room.PrimaryKey;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 @Entity(tableName = "place")
 public class Place {
 
-    @PrimaryKey(autoGenerate = true)
-    private int id;
+    @SerializedName("id")
+    @Expose
+    private Integer id;
+    @SerializedName("name")
+    @Expose
     private String name;
-    private String address;
-    private String image_url;
+    @SerializedName("info")
+    @Expose
+    private Info info;
+    @SerializedName("mig")
+    @Expose
+    private Mig mig;
+    @SerializedName("pois")
+    @Expose
+    private Pois pois;
 
-    public Place(int id, String name, String address, String image_url) {
-        this.id = id;
-        this.name = name;
-        this.address = address;
-        this.image_url = image_url;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -35,19 +40,28 @@ public class Place {
         this.name = name;
     }
 
-    public String getAddress() {
-        return address;
+    public Info getInfo() {
+        return info;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setInfo(Info info) {
+        this.info = info;
     }
 
-    public String getImage_url() {
-        return image_url;
+    public Mig getMig() {
+        return mig;
     }
 
-    public void setImage_url(String image_url) {
-        this.image_url = image_url;
+    public void setMig(Mig mig) {
+        this.mig = mig;
     }
+
+    public Pois getPois() {
+        return pois;
+    }
+
+    public void setPois(Pois pois) {
+        this.pois = pois;
+    }
+
 }

@@ -1,8 +1,7 @@
 package com.deyanm.hisar.ui;
 
 import android.Manifest;
-import android.content.Context;
-import android.content.DialogInterface;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -17,6 +16,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -26,6 +26,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.deyanm.hisar.R;
 import com.deyanm.hisar.databinding.ActivityMainBinding;
+import com.deyanm.hisar.utils.Constants;
 import com.deyanm.hisar.utils.Utils;
 import com.deyanm.hisar.viewmodel.MainViewModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         bindViews();
+
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
@@ -74,28 +76,24 @@ public class MainActivity extends AppCompatActivity {
         } else {
             checkLocationPermission();
         }
-//        viewModel.getPlacesList().observe(this, places -> {
-//            Log.e(TAG, "onChanged: " + places.size());
-//            Picasso.get().load(places.get(0).getImage_url()).into(binding.image1);
-//        });
-//        viewModel.getPlaces();
         viewModel.getVersion().observe(this, version -> {
-            Log.d(TAG, "" + version);
-        });
-        viewModel.getVersions();
-        viewModel.getFileResponse().observe(this, fileResponse -> {
-            try {
-                File directory = getApplicationContext().getDir(getFilesDir().getName(), Context.MODE_PRIVATE);
-                File file =  new File(directory,"db.json");
+            if (viewModel.getCurrentFileVersion() == -1 || version > viewModel.getCurrentFileVersion()) {
+                viewModel.setCurrentFileVersion(version);
+                viewModel.getFileResponse().observe(this, fileResponse -> {
+                    try {
+                        File file = new File(getFilesDir() + "/db.json");
 
-                BufferedSink bufferedSink = Okio.buffer(Okio.sink(file));
-                bufferedSink.writeAll(fileResponse.source());
-                bufferedSink.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+                        BufferedSink bufferedSink = Okio.buffer(Okio.sink(file));
+                        bufferedSink.writeAll(fileResponse.source());
+                        bufferedSink.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+                viewModel.downloadFile();
             }
         });
-        viewModel.downloadFile("https://raw.githubusercontent.com/deyanm/hisarserver/main/db.json");
+        viewModel.getVersions();
     }
 
     private void checkLocationPermission() {
@@ -108,14 +106,11 @@ public class MainActivity extends AppCompatActivity {
                 new AlertDialog.Builder(this)
                         .setTitle("Location Permission Needed")
                         .setMessage("This app needs the Location permission, please accept to use location functionality")
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                //Prompt the user once explanation has been shown
-                                ActivityCompat.requestPermissions(MainActivity.this,
-                                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                                        MY_PERMISSIONS_REQUEST_LOCATION);
-                            }
+                        .setPositiveButton("OK", (dialogInterface, i) -> {
+                            //Prompt the user once explanation has been shown
+                            ActivityCompat.requestPermissions(MainActivity.this,
+                                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                    MY_PERMISSIONS_REQUEST_LOCATION);
                         })
                         .create()
                         .show();
@@ -159,19 +154,39 @@ public class MainActivity extends AppCompatActivity {
         binding.migBtn.setOnClickListener(v -> {
             startActivity(new Intent(this, AboutActivity.class));
         });
+        binding.placesBtn.setOnClickListener(v -> {
+            startActivity(new Intent(this, PlacesActivity.class).putExtra("TYPE", Constants.SIGHTS_KEY));
+        });
         binding.hotelsBtn.setOnClickListener(v -> {
-            startActivity(new Intent(this, HotelsActivity.class));
+            startActivity(new Intent(this, PlacesActivity.class).putExtra("TYPE", Constants.HOTEL_KEY));
         });
         binding.infoBtn.setOnClickListener(v -> {
             startActivity(new Intent(this, InfoActivity.class));
         });
-        binding.button1.setStrokeWidth(Utils.dp2px(MainActivity.this.getResources(), 3));
+
+        binding.restBtn.setOnClickListener(v -> {
+            startActivity(new Intent(this, PlacesActivity.class).putExtra("TYPE", Constants.REST_KEY));
+        });
+        binding.galleryBtn.setOnClickListener(v -> {
+            startActivity(new Intent(this, PlacesActivity.class));
+        });
+
+        if (viewModel.getCurrentPlaceId() == -1) {
+            viewModel.setCurrentPlaceId(1);
+            binding.button1.setStrokeWidth(Utils.dp2px(MainActivity.this.getResources(), 5));
+        } else if (viewModel.getCurrentPlaceId() == 1) {
+            binding.button1.setStrokeWidth(Utils.dp2px(MainActivity.this.getResources(), 5));
+        } else if (viewModel.getCurrentPlaceId() == 2) {
+            binding.button2.setStrokeWidth(Utils.dp2px(MainActivity.this.getResources(), 5));
+        }
         binding.button1.setOnClickListener(v -> {
-            binding.button1.setStrokeWidth(Utils.dp2px(MainActivity.this.getResources(), 3));
+            viewModel.setCurrentPlaceId(1);
+            binding.button1.setStrokeWidth(Utils.dp2px(MainActivity.this.getResources(), 5));
             binding.button2.setStrokeWidth(0);
         });
         binding.button2.setOnClickListener(v -> {
-            binding.button2.setStrokeWidth(Utils.dp2px(MainActivity.this.getResources(), 3));
+            viewModel.setCurrentPlaceId(2);
+            binding.button2.setStrokeWidth(Utils.dp2px(MainActivity.this.getResources(), 5));
             binding.button1.setStrokeWidth(0);
         });
     }
@@ -187,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.settings) {
-            startActivity(new Intent(this, SettingsActivity.class));
+            startActivityForResult(new Intent(this, SettingsActivity.class), 1111);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -222,4 +237,13 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1111) {
+            if (resultCode == Activity.RESULT_CANCELED) {
+                finish();
+            }
+        }
+    }
 }

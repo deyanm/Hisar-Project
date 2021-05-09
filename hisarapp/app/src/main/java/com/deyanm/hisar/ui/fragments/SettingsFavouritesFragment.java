@@ -10,24 +10,24 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.deyanm.hisar.databinding.FragmentLanguageBinding;
+import com.deyanm.hisar.databinding.FragmentFavouritesBinding;
 import com.deyanm.hisar.viewmodel.SettingsViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class SettingsLanguageFragment extends Fragment {
+public class SettingsFavouritesFragment extends Fragment {
 
-    private FragmentLanguageBinding binding;
+    private FragmentFavouritesBinding binding;
     private SettingsViewModel mViewModel;
 
-    public static SettingsLanguageFragment newInstance() {
-        return new SettingsLanguageFragment();
+    public static SettingsFavouritesFragment newInstance() {
+        return new SettingsFavouritesFragment();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentLanguageBinding.inflate(inflater, container, false);
+        binding = FragmentFavouritesBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -37,6 +37,9 @@ public class SettingsLanguageFragment extends Fragment {
 
         mViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
 //        mViewModel.updateActionBarTitle(getString(R.string.title_language));
+
+
+
     }
 
 }

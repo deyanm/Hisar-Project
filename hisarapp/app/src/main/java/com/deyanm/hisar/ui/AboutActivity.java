@@ -10,19 +10,11 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.CompositePageTransformer;
-import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.deyanm.hisar.R;
-import com.deyanm.hisar.adapters.ImageSliderAdapter;
 import com.deyanm.hisar.databinding.ActivityAboutBinding;
-import com.deyanm.hisar.model.SliderItem;
 import com.deyanm.hisar.viewmodel.AboutViewModel;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -45,41 +37,41 @@ public class AboutActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        viewPager2 = findViewById(R.id.viewPagerImageSlider);
-
-        List<SliderItem> sliderItems = new ArrayList<>();
-        sliderItems.add(new SliderItem(R.drawable.image2));
-        sliderItems.add(new SliderItem(R.drawable.image1));
-        sliderItems.add(new SliderItem(R.drawable.image3));
-        sliderItems.add(new SliderItem(R.drawable.image4));
-        sliderItems.add(new SliderItem(R.drawable.image5));
-        sliderItems.add(new SliderItem(R.drawable.image6));
-
-        viewPager2.setAdapter(new ImageSliderAdapter(sliderItems, viewPager2));
-
-        viewPager2.setCurrentItem(0, true);
-        viewPager2.setClipToPadding(false);
-        viewPager2.setClipChildren(false);
-        viewPager2.setOffscreenPageLimit(2);
-        viewPager2.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
-
-        CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
-        compositePageTransformer.addTransformer(new MarginPageTransformer(40));
-        compositePageTransformer.addTransformer((page, position) -> {
-            float r = 1 - Math.abs(position);
-            page.setScaleY(0.85f + r * 0.15f);
-        });
-
-//        viewPager2.setPageTransformer(compositePageTransformer);
-
-        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                sliderHandler.removeCallbacks(sliderRunnable);
-                sliderHandler.postDelayed(sliderRunnable, 5000);
-            }
-        });
+//        viewPager2 = findViewById(R.id.viewPagerImageSlider);
+//
+//        List<SliderItem> sliderItems = new ArrayList<>();
+//        sliderItems.add(new SliderItem(R.drawable.image2));
+//        sliderItems.add(new SliderItem(R.drawable.image1));
+//        sliderItems.add(new SliderItem(R.drawable.image3));
+//        sliderItems.add(new SliderItem(R.drawable.image4));
+//        sliderItems.add(new SliderItem(R.drawable.image5));
+//        sliderItems.add(new SliderItem(R.drawable.image6));
+//
+//        viewPager2.setAdapter(new ImageSliderAdapter(sliderItems, viewPager2));
+//
+//        viewPager2.setCurrentItem(0, true);
+//        viewPager2.setClipToPadding(false);
+//        viewPager2.setClipChildren(false);
+//        viewPager2.setOffscreenPageLimit(2);
+//        viewPager2.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
+//
+//        CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
+//        compositePageTransformer.addTransformer(new MarginPageTransformer(40));
+//        compositePageTransformer.addTransformer((page, position) -> {
+//            float r = 1 - Math.abs(position);
+//            page.setScaleY(0.85f + r * 0.15f);
+//        });
+//
+////        viewPager2.setPageTransformer(compositePageTransformer);
+//
+//        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+//            @Override
+//            public void onPageSelected(int position) {
+//                super.onPageSelected(position);
+//                sliderHandler.removeCallbacks(sliderRunnable);
+//                sliderHandler.postDelayed(sliderRunnable, 5000);
+//            }
+//        });
     }
 
     private Runnable sliderRunnable = new Runnable() {

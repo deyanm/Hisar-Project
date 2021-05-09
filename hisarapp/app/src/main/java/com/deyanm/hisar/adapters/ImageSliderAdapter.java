@@ -1,67 +1,69 @@
 package com.deyanm.hisar.adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
+import android.widget.TextView;
 
 import com.deyanm.hisar.R;
 import com.deyanm.hisar.model.SliderItem;
+import com.smarteist.autoimageslider.SliderViewAdapter;
+import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.SliderViewHolder> {
+public class ImageSliderAdapter extends SliderViewAdapter<ImageSliderAdapter.SliderAdapterVH> {
 
-    private List<SliderItem> sliderItems;
-    private ViewPager2 viewPager2;
+    private Context context;
+    private List<SliderItem> mSliderItems = new ArrayList<>();
 
-    public ImageSliderAdapter(List<SliderItem> sliderItems, ViewPager2 viewPager2) {
-        this.sliderItems = sliderItems;
-        this.viewPager2 = viewPager2;
+    public ImageSliderAdapter(Context context) {
+        this.context = context;
     }
 
-    @NonNull
-    @Override
-    public SliderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new SliderViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_slider, parent, false));
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull SliderViewHolder holder, int position) {
-        holder.setImage(sliderItems.get(position));
-        if (position == sliderItems.size() - 3) {
-            viewPager2.post(runnable);
-        }
+    public void renewItems(List<SliderItem> sliderItems) {
+        this.mSliderItems = sliderItems;
+        notifyDataSetChanged();
     }
 
     @Override
-    public int getItemCount() {
-        return sliderItems.size();
+    public SliderAdapterVH onCreateViewHolder(ViewGroup parent) {
+        View inflate = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_slider, null);
+        return new SliderAdapterVH(inflate);
     }
 
-    static class SliderViewHolder extends RecyclerView.ViewHolder {
-        private ImageView imageView;
+    @Override
+    public void onBindViewHolder(SliderAdapterVH viewHolder, final int position) {
 
-        SliderViewHolder(@NonNull View itemView) {
+        SliderItem sliderItem = mSliderItems.get(position);
+
+        int id = context.getResources().getIdentifier(sliderItem.getImageUrl(), "drawable", context.getPackageName());
+
+        Picasso.get().load(id).centerCrop().fit().into(viewHolder.imageViewBackground);
+
+//        viewHolder.itemView.setOnClickListener(v -> Toast.makeText(context, "This is item in position " + position, Toast.LENGTH_SHORT).show());
+    }
+
+    @Override
+    public int getCount() {
+        return mSliderItems.size();
+    }
+
+    static class SliderAdapterVH extends SliderViewAdapter.ViewHolder {
+
+        View itemView;
+        ImageView imageViewBackground;
+        ImageView imageGifContainer;
+        TextView textViewDescription;
+
+        public SliderAdapterVH(View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.imageSlide);
-        }
-
-        void setImage(SliderItem sliderItem) {
-            imageView.setImageResource(sliderItem.getImage());
+            imageViewBackground = itemView.findViewById(R.id.iv_auto_image_slider);
+            this.itemView = itemView;
         }
     }
-
-    private Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            sliderItems.addAll(sliderItems);
-            notifyDataSetChanged();
-        }
-    };
 
 }

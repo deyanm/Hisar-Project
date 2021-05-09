@@ -1,5 +1,6 @@
 package com.deyanm.hisar.ui.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,8 +41,12 @@ public class SettingsActivityFragment extends Fragment {
         binding.notificationsLayout.setOnClickListener(v -> {
             Navigation.findNavController(view).navigate(R.id.settingsNotificationsFragment);
         });
-        binding.languageLayout.setOnClickListener(v -> {
-            Navigation.findNavController(view).navigate(R.id.settingsLanguageFragment);
+        binding.favouritesLayout.setOnClickListener(v -> {
+            Navigation.findNavController(view).navigate(R.id.settingsFavouritesFragment);
+        });
+        binding.exitBtn.setOnClickListener(v -> {
+            getActivity().setResult(Activity.RESULT_CANCELED);
+            getActivity().finish();
         });
 //        binding.notificationsLayout.setOnClickListener(v -> {
 //            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new SettingsNotificationsFragment()).commit();

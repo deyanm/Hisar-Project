@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.deyanm.hisar.model.Place;
 import com.deyanm.hisar.repository.Repository;
-import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import java.util.ArrayList;
@@ -46,29 +46,29 @@ public class MainViewModel extends ViewModel {
         return version;
     }
 
-    public void getPlaces() {
-        repository.getPlaces()
-                .subscribeOn(Schedulers.io())
-                .map(placeResponse -> placeResponse)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(result -> placesList.setValue(result),
-                        error -> Log.e(TAG, "error getting places " + error.getMessage()));
-    }
+//    public void getPlaces() {
+//        repository.getPlacesList()
+//                .subscribeOn(Schedulers.io())
+//                .map(placeResponse -> placeResponse)
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(result -> placesList.setValue(result),
+//                        error -> Log.e(TAG, "error getting places " + error.getMessage()));
+//    }
 
     public void getVersions() {
         repository.getVersions()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(responseBody -> {
-                    JsonArray jsonArray = new JsonParser().parse(responseBody.string()).getAsJsonArray();
-                    return Observable.just(jsonArray.get(0).getAsJsonObject().get("current").getAsInt());
+                    JsonObject jsonObject = new JsonParser().parse(responseBody.string()).getAsJsonObject();
+                    return Observable.just(jsonObject.get("version").getAsInt());
                 })
                 .subscribe(result -> version.setValue(result),
                         error -> Log.e(TAG, "error getting db file version: " + error.getMessage()));
     }
 
-    public void downloadFile(String url) {
-        repository.getFile(url)
+    public void downloadFile() {
+        repository.getFile()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(responseBody -> Observable.just(responseBody.body()))
@@ -96,11 +96,19 @@ public class MainViewModel extends ViewModel {
                 });
     }
 
-    public void insertPlace(Place place) {
-        repository.insertPlace(place);
+    public int getCurrentPlaceId() {
+        return repository.getCurrentPlaceId();
     }
 
-    public void deletePlace(int id) {
-        repository.deletePlace(id);
+    public void setCurrentPlaceId(int id) {
+        repository.setCurrentPlaceId(id);
+    }
+
+    public int getCurrentFileVersion() {
+        return repository.getCurrentFileVersion();
+    }
+
+    public void setCurrentFileVersion(int version) {
+        repository.setCurrentFileVersion(version);
     }
 }

@@ -17,8 +17,7 @@
         android:orientation="horizontal"
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/accountLayout">
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             style="@style/DefaultTextView"

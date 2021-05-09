@@ -1,25 +1,30 @@
 package com.deyanm.hisar.ui;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
+import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.deyanm.hisar.BuildConfig;
 import com.deyanm.hisar.R;
 import com.deyanm.hisar.databinding.ActivityMapBinding;
-import com.deyanm.hisar.viewmodel.MainViewModel;
+import com.deyanm.hisar.model.Place;
+import com.deyanm.hisar.model.Poi;
+import com.deyanm.hisar.utils.Constants;
+import com.deyanm.hisar.viewmodel.MapViewModel;
 import com.microsoft.maps.Geopoint;
 import com.microsoft.maps.MapAnimationKind;
+import com.microsoft.maps.MapElementLayer;
+import com.microsoft.maps.MapIcon;
 import com.microsoft.maps.MapRenderMode;
 import com.microsoft.maps.MapScene;
 import com.microsoft.maps.MapView;
@@ -28,15 +33,19 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class MapActivity extends AppCompatActivity {
+    private static final String TAG = MapActivity.class.getSimpleName();
     private ActivityMapBinding binding;
-    private MainViewModel viewModel;
+    private MapViewModel mapViewModel;
     private MapView mMapView;
-    private static final Geopoint LAKE_WASHINGTON = new Geopoint(47.609466, -122.265185);
+    private MapElementLayer mPinLayer;
+    private static final Geopoint HISAR_LOC = new Geopoint(42.5041069, 24.7034471);
+    private Poi selectedSight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMapBinding.inflate(getLayoutInflater());
+        mapViewModel = new ViewModelProvider(this).get(MapViewModel.class);
         setContentView(binding.getRoot());
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -48,15 +57,67 @@ public class MapActivity extends AppCompatActivity {
         mMapView.setCredentialsKey(BuildConfig.CREDENTIALS_KEY);
         binding.mapView.addView(mMapView);
         mMapView.onCreate(savedInstanceState);
+        mPinLayer = new MapElementLayer();
+        mMapView.getLayers().add(mPinLayer);
 
-        String[] permission = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        mapViewModel.getPlace().observe(this, place -> {
+            Log.d(TAG, place.getName());
+            selectedSight = place.getPois().getSights().get(0);
+            showSightInfo(selectedSight);
+            showPins(place);
+        });
+        mapViewModel.getCurrentPlace();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-                    || checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-                requestPermissions(permission, 1);
+        binding.directionsBtn.setOnClickListener(view -> {
+            Uri gmmIntentUri = Uri.parse("google.navigation:q=" + selectedSight.getLocation().getLat() + "," + selectedSight.getLocation().getLon());
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+            mapIntent.setPackage("com.google.android.apps.maps");
+            startActivity(mapIntent);
+        });
+        binding.moreBtn.setOnClickListener(view -> startActivity(new Intent(MapActivity.this, AboutPoiActivity.class).putExtra("TYPE", Constants.SIGHTS_KEY).putExtra("POI", selectedSight)));
+        binding.shareBtn.setOnClickListener(view -> {
+            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+            sharingIntent.setType("text/plain");
+            String shareBody = selectedSight.getShortDescription();
+            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, selectedSight.getName());
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+            startActivity(Intent.createChooser(sharingIntent, "Share via"));
+        });
+        binding.myLocBtn.setOnClickListener(view -> {
 
+        });
+    }
+
+    private void showPins(Place place) {
+        for (Poi sight : place.getPois().getSights()) {
+            Geopoint location = new Geopoint(sight.getLocation().getLat(), sight.getLocation().getLon());
+            String title = sight.getName();
+
+            MapIcon pushpin = new MapIcon();
+            pushpin.setLocation(location);
+            pushpin.setTitle(title);
+
+            mPinLayer.getElements().add(pushpin);
         }
+
+        mPinLayer.addOnMapElementTappedListener(mapElementTappedEventArgs -> {
+            for (Poi sight1 : place.getPois().getSights()) {
+                float[] distance = new float[1];
+                Location.distanceBetween(sight1.getLocation().getLat(), sight1.getLocation().getLon(), mapElementTappedEventArgs.location.getPosition().getLatitude(), mapElementTappedEventArgs.location.getPosition().getLongitude(), distance);
+                if (distance[0] < 50.0) {
+                    showSightInfo(sight1);
+                    selectedSight = sight1;
+                    break;
+                }
+            }
+            return false;
+        });
+    }
+
+    private void showSightInfo(Poi sight) {
+        binding.placeTitle.setText(sight.getName());
+//        binding.placeImage.setImageResource();
+        binding.placeText.setText(sight.getShortDescription());
     }
 
     @Override
@@ -64,7 +125,7 @@ public class MapActivity extends AppCompatActivity {
         super.onStart();
         mMapView.onStart();
         mMapView.setScene(
-                MapScene.createFromLocationAndZoomLevel(LAKE_WASHINGTON, 10),
+                MapScene.createFromLocationAndZoomLevel(HISAR_LOC, 15),
                 MapAnimationKind.NONE);
     }
 
@@ -102,19 +163,6 @@ public class MapActivity extends AppCompatActivity {
     public void onLowMemory() {
         super.onLowMemory();
         mMapView.onLowMemory();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 1 && grantResults.length > 0) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                //permission granted
-            } else {
-                Toast.makeText(this, "All permission required.", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-        }
     }
 
     @Override

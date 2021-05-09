@@ -18,7 +18,7 @@
                 app:destination="@id/settingsNotificationsFragment" />
             <action
                 android:id="@+id/action_settingsActivityFragment_to_settingsLanguageFragment"
-                app:destination="@id/settingsLanguageFragment" />
+                app:destination="@id/settingsFavouritesFragment" />
         </fragment>
         <fragment
             android:id="@+id/settingsNotificationsFragment"
@@ -26,9 +26,9 @@
             android:label="SettingsNotificationsFragment"
             tools:layout="@layout/fragment_notifications" />
         <fragment
-            android:id="@+id/settingsLanguageFragment"
-            android:name="com.deyanm.hisar.ui.fragments.SettingsLanguageFragment"
-            android:label="SettingsLanguageFragment"
-            tools:layout="@layout/fragment_language" />
+            android:id="@+id/settingsFavouritesFragment"
+            android:name="com.deyanm.hisar.ui.fragments.SettingsFavouritesFragment"
+            android:label="SettingsFavouritesFragment"
+            tools:layout="@layout/fragment_favourites" />
     </navigation>
 </navigation>
