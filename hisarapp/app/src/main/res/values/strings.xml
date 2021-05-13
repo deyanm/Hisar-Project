@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Hisar App</string>
+    <string name="app_name">MIG</string>
     <string name="title_activity_main">Home</string>
     <string name="title_activity_map">Map</string>
     <string name="title_activity_about">About MIG</string>
@@ -29,4 +29,17 @@
     <string name="english">English</string>
     <string name="bulgarian">Bulgarian</string>
     <string name="romanian">Romanian</string>
+    <string name="slide_1_title">Find</string>
+    <string name="slide_2_title">Choose</string>
+    <string name="slide_3_title">Explore</string>
+    <string name="slide_1_text">Find places near you</string>
+    <string name="slide_2_text">Choose a new adventure</string>
+    <string name="slide_3_text">Rediscover new places</string>
+    <string name="slide_button">Skip</string>
+    <string name="slide_button2">Explore!</string>
+    <string name="title_location_permission">Location</string>
+    <string name="text_location_permission">The application must have permission to find location</string>
+    <string name="ok">OK</string>
+    <string name="my_loc">My location</string>
+    <string name="images_title">Images</string>
 </resources>

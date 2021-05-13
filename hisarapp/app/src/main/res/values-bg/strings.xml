@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Хисар</string>
+    <string name="app_name">МИГ</string>
     <string name="title_activity_settings">Настройки</string>
     <string name="title_activity_map">Карта</string>
     <string name="settings_general">Основни</string>
@@ -30,4 +30,17 @@
     <string name="english">Английски</string>
     <string name="bulgarian">Български</string>
     <string name="romanian">Румънски</string>
+    <string name="slide_1_title">Намери</string>
+    <string name="slide_2_title">Избери</string>
+    <string name="slide_3_title">Преоткрий</string>
+    <string name="slide_1_text">Намери места близо до теб</string>
+    <string name="slide_2_text">Избери ново приключение</string>
+    <string name="slide_3_text">Преоткрий нови места</string>
+    <string name="slide_button">Пропусни</string>
+    <string name="slide_button2">Преоткрий!</string>
+    <string name="my_loc">Моето местоположение</string>
+    <string name="title_location_permission">Местоположение</string>
+    <string name="text_location_permission">Трябва разрешение за намиране на местоположението</string>
+    <string name="ok">OK</string>
+    <string name="images_title">Снимки</string>
 </resources>

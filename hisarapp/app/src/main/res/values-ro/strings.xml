@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">hisar-app</string>
+    <string name="app_name">MIG</string>
     <string name="title_activity_main">Acasă</string>
     <string name="title_activity_map">Hartă</string>
     <string name="title_activity_about">Despre MIG</string>
@@ -30,4 +30,13 @@
     <string name="english">Engleză</string>
     <string name="bulgarian">Bulgară</string>
     <string name="romanian">Română</string>
+    <string name="slide_1_title">Găsi</string>
+    <string name="slide_2_title">Alege</string>
+    <string name="slide_3_title">Explora</string>
+    <string name="slide_1_text">Găsiți locuri în apropiere</string>
+    <string name="slide_2_text">Alegeți o nouă aventură</string>
+    <string name="slide_3_text">Redescoperiți locuri noi</string>
+    <string name="slide_button">Ocolire</string>
+    <string name="slide_button2">Explora!</string>
+    <string name="ok">OK</string>
 </resources>

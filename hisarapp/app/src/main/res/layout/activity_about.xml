@@ -16,101 +16,135 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingStart="@dimen/activity_horizontal_margin"
-            android:paddingEnd="@dimen/activity_horizontal_margin">
+            android:orientation="vertical">
 
-            <com.google.android.material.card.MaterialCardView
+            <com.smarteist.autoimageslider.SliderView
+                android:id="@+id/imageSlider"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                app:sliderAnimationDuration="600"
+                app:sliderAutoCycleDirection="back_and_forth"
+                app:sliderAutoCycleEnabled="true"
+                app:sliderIndicatorAnimationDuration="600"
+                app:sliderIndicatorGravity="center_horizontal|bottom"
+                app:sliderIndicatorMargin="15dp"
+                app:sliderIndicatorOrientation="horizontal"
+                app:sliderIndicatorPadding="3dp"
+                app:sliderIndicatorRadius="2dp"
+                app:sliderIndicatorSelectedColor="#5A5A5A"
+                app:sliderIndicatorUnselectedColor="#FFF"
+                app:sliderScrollTimeInSec="1"
+                app:sliderStartAutoCycle="true" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                app:cardCornerRadius="15dp">
 
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/viewPagerImageSlider"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp" />
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp">
+                android:orientation="vertical"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingEnd="@dimen/activity_horizontal_margin">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/placeNameTv"
                     style="@style/TitleTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="MIG"
-                    android:textSize="18sp" />
+                    android:text="Place name"
+                    android:textSize="16sp" />
 
-                <ImageView
-                    android:id="@+id/icontext"
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
-                    android:layout_alignTop="@id/locTv"
-                    android:layout_alignBottom="@id/locTv"
-                    android:src="@drawable/ic_pin_location" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/locTv"
-                    style="@style/DefaultTextView"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/locLayout"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/placeNameTv"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_toEndOf="@id/icontext"
-                    android:gravity="center"
-                    android:text="Location"
-                    android:textColor="#AAAAAA"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_pin_location" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/locTv"
+                        style="@style/DefaultTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:gravity="start"
+                        android:text="Location"
+                        android:textColor="#AAAAAA"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    style="@style/TitleTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="@string/description"
                     android:textSize="16sp" />
-            </RelativeLayout>
 
-            <TextView
-                style="@style/BodyTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:lineSpacingExtra="1.5dp"
-                android:text="" />
+                <TextView
+                    android:id="@+id/fullDescTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Desc text"
+                    android:textSize="14sp" />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/act_ab_photo1" />
+                <TextView
+                    android:id="@+id/teamTitleTv"
+                    style="@style/TitleTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="Team"
+                    android:textSize="16sp" />
 
-            <TextView
-                style="@style/TitleTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text=""
-                android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/teamTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Team text"
+                    android:textSize="14sp" />
 
-            <TextView
-                style="@style/BodyTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:lineSpacingExtra="1.5dp"
-                android:text="" />
+                <TextView
+                    android:id="@+id/contactsTitleTv"
+                    style="@style/TitleTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="Contacts"
+                    android:textSize="16sp" />
 
-            <TextView
-                style="@style/TitleTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text=""
-                android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/contactsTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Cont text"
+                    android:textSize="14sp" />
 
-            <TextView
-                style="@style/BodyTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:lineSpacingExtra="1.5dp"
-                android:text="" />
+                <TextView
+                    style="@style/TitleTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="@string/images_title"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:id="@+id/imagesLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical" />
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

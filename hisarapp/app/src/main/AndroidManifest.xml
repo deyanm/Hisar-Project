@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.deyanm.hisar">
+    package="com.example.mig">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
-        android:name=".BaseApplication"
+        android:name="com.example.mig.BaseApplication"
         android:allowBackup="false"
         android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher"
@@ -16,19 +16,23 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Hisarapp"
         tools:replace="android:allowBackup">
-        <activity android:name=".ui.MainActivity">
+        <activity
+            android:name="com.example.mig.ui.IntroActivity"
+            android:theme="@style/SplashScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.InfoActivity" />
-        <activity android:name=".ui.SettingsActivity" />
-        <activity android:name=".ui.MapActivity" />
-        <activity android:name=".ui.AboutActivity" />
-        <activity android:name=".ui.PlacesActivity" />
-        <activity android:name=".ui.AboutPoiActivity" />
+        <activity android:name="com.example.mig.ui.MainActivity" />
+        <activity android:name="com.example.mig.ui.InfoActivity" />
+        <activity android:name="com.example.mig.ui.SettingsActivity" />
+        <activity android:name="com.example.mig.ui.MapActivity" />
+        <activity android:name="com.example.mig.ui.AboutActivity" />
+        <activity android:name="com.example.mig.ui.PlacesActivity" />
+        <activity android:name="com.example.mig.ui.AboutPoiActivity" />
+        <activity android:name="com.example.mig.ui.GalleryActivity" />
     </application>
 
 </manifest>

@@ -11,7 +11,7 @@
         <fragment
             android:id="@+id/settingsActivityFragment"
             android:label="SettingsActivityFragment"
-            android:name="com.deyanm.hisar.ui.fragments.SettingsActivityFragment"
+            android:name="com.example.mig.ui.fragments.SettingsActivityFragment"
             tools:layout="@layout/fragment_settings">
             <action
                 android:id="@+id/action_settingsActivityFragment_to_settingsNotificationsFragment"
@@ -22,12 +22,12 @@
         </fragment>
         <fragment
             android:id="@+id/settingsNotificationsFragment"
-            android:name="com.deyanm.hisar.ui.fragments.SettingsNotificationsFragment"
+            android:name="com.example.mig.ui.fragments.SettingsNotificationsFragment"
             android:label="SettingsNotificationsFragment"
             tools:layout="@layout/fragment_notifications" />
         <fragment
             android:id="@+id/settingsFavouritesFragment"
-            android:name="com.deyanm.hisar.ui.fragments.SettingsFavouritesFragment"
+            android:name="com.example.mig.ui.fragments.SettingsFavouritesFragment"
             android:label="SettingsFavouritesFragment"
             tools:layout="@layout/fragment_favourites" />
     </navigation>
