@@ -23,4 +23,8 @@ public class AboutPoiViewModel extends ViewModel {
         return repository.getIsPlaceFav(id);
     }
 
+    public String getLangLocale() {
+        return repository.getLanguageLocale();
+    }
+
 }

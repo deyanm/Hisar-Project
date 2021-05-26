@@ -1,7 +1,14 @@
 package com.example.mig.utils;
 
+import android.app.Activity;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.util.TypedValue;
+import android.view.View;
+
+import com.google.android.material.snackbar.Snackbar;
+
+import java.util.Locale;
 
 public class Utils {
 
@@ -13,11 +20,20 @@ public class Utils {
     }
 
     public static float px2dp(Resources resource, float px) {
-        return (float) TypedValue.applyDimension(
+        return TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_PX,
                 px,
                 resource.getDisplayMetrics()
         );
+    }
+
+    public static void showSnackbar(Activity activity, int mainText, int actionString,
+                                    View.OnClickListener listener) {
+        Snackbar.make(
+                activity.findViewById(android.R.id.content),
+                activity.getString(mainText),
+                Snackbar.LENGTH_LONG)
+                .setAction(activity.getString(actionString), listener).show();
     }
 
     //    public void getPlaceFromUtil(Context context, int id) {
@@ -60,4 +76,16 @@ public class Utils {
 //        });
 //
 //    }
+
+    public static void checkLocale(Activity activity, String locale) {
+        if (!locale.equals("AUTO")) {
+            Locale currentAppLocale = new Locale(locale);
+            Locale.setDefault(currentAppLocale);
+            Resources resources = activity.getResources();
+            Configuration config = resources.getConfiguration();
+            config.setLocale(currentAppLocale);
+            resources.updateConfiguration(config, resources.getDisplayMetrics());
+        }
+    }
+
 }

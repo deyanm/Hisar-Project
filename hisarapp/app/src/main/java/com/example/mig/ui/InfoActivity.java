@@ -2,23 +2,26 @@ package com.example.mig.ui;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.os.ConfigurationCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.mig.R;
 import com.example.mig.adapters.ImageSliderAdapter;
 import com.example.mig.databinding.ActivityInfoBinding;
 import com.example.mig.model.SliderItem;
+import com.example.mig.utils.Utils;
 import com.example.mig.viewmodel.InfoViewModel;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
@@ -42,6 +45,7 @@ public class InfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityInfoBinding.inflate(getLayoutInflater());
         viewModel = new ViewModelProvider(this).get(InfoViewModel.class);
+        Utils.checkLocale(this, viewModel.getLangLocale());
         setContentView(binding.getRoot());
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -49,26 +53,16 @@ public class InfoActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        viewModel.getCurrentPlace();
+        String langCode = ConfigurationCompat.getLocales(getResources().getConfiguration()).get(0).getLanguage();
+        viewModel.getCurrentPlace(langCode);
         viewModel.getPlace().observe(this, place -> {
             if (place != null) {
                 binding.placeNameTv.setText(place.getInfo().getName());
                 binding.locTv.setText(place.getInfo().getAddress());
-                binding.fullDescTv.setText(place.getInfo().getFullDescription());
+                binding.fullDescTv.setText(Html.fromHtml(place.getInfo().getFullDescription(), new ImageGetter(), null));
 
                 if (place.getInfo().getImages() != null && place.getInfo().getImages().size() > 0) {
                     addItems(place.getInfo().getImages());
-
-                    for (String image : place.getInfo().getImages()) {
-                        ImageView imageView = new ImageView(this);
-                        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                        int id = this.getResources().getIdentifier(image, "drawable", this.getPackageName());
-                        imageView.setImageResource(id);
-                        imageView.setAdjustViewBounds(true);
-                        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                        imageView.setLayoutParams(lp);
-                        binding.imagesLayout.addView(imageView);
-                    }
                 }
             }
         });
@@ -116,5 +110,32 @@ public class InfoActivity extends AppCompatActivity {
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private class ImageGetter implements Html.ImageGetter {
+
+        public Drawable getDrawable(String source) {
+            if (source == null) {
+                return null;
+            }
+            int id;
+
+            id = getResources().getIdentifier(source, "drawable", getPackageName());
+
+            if (id == 0) {
+                // the drawable resource wasn't found in our package, maybe it is a stock android drawable?
+                id = getResources().getIdentifier(source, "drawable", "android");
+            }
+
+            if (id == 0) {
+                // prevent a crash if the resource still can't be found
+                return null;
+            } else {
+                Drawable d = ResourcesCompat.getDrawable(getResources(), id, getTheme());
+                d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
+                return d;
+            }
+        }
+
     }
 }

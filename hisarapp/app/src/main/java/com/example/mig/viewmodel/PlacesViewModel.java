@@ -44,6 +44,18 @@ public class PlacesViewModel extends ViewModel {
                 .subscribe(pois -> poisList.setValue(pois), error -> Log.d(TAG, "error getting place " + error.getMessage()));
     }
 
+    public void setIsPlaceFav(int id, boolean isFav) {
+        repository.setIsPlaceFav(id, isFav);
+    }
+
+    public boolean getIsPlaceFav(int id) {
+        return repository.getIsPlaceFav(id);
+    }
+
+    public String getLangLocale() {
+        return repository.getLanguageLocale();
+    }
+
 //    public void getRestaurants() {
 //        repository.getRestaurants()
 //                .subscribeOn(Schedulers.io())

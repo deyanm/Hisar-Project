@@ -14,6 +14,11 @@ public class Location implements Serializable {
     @Expose
     private Double lon;
 
+    public Location(Double lat, Double lon) {
+        this.lat = lat;
+        this.lon = lon;
+    }
+
     public Double getLat() {
         return lat;
     }

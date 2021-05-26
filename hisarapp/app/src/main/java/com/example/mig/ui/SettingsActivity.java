@@ -1,21 +1,25 @@
 package com.example.mig.ui;
 
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
 import com.example.mig.R;
 import com.example.mig.databinding.ActivitySettingsBinding;
+import com.example.mig.utils.Utils;
 import com.example.mig.viewmodel.SettingsViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class SettingsActivity extends AppCompatActivity {
+    private static final String TAG = SettingsActivity.class.getSimpleName();
     ActivitySettingsBinding binding;
     SettingsViewModel viewModel;
 
@@ -24,25 +28,24 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivitySettingsBinding.inflate(getLayoutInflater());
         viewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
+        Utils.checkLocale(this, viewModel.getLangLocale());
         setContentView(binding.getRoot());
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.title_activity_settings);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        viewModel.getTitle().observe(this, charSequence -> {
-            getSupportActionBar().setTitle(charSequence.toString());
-        });
-
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    public void onBackPressed() {
+        super.onBackPressed();
+        Log.d(TAG, "Back pressed activity");
+        NavController navController = Navigation.findNavController(this, R.id.fragment);
+        AppBarConfiguration.Builder appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph());
+        NavigationUI.navigateUp(navController, appBarConfiguration.build());
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        Log.d(TAG, "back pressed");
+        NavController navController = Navigation.findNavController(this, R.id.fragment);
+        AppBarConfiguration.Builder appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph());
+        return NavigationUI.navigateUp(navController, appBarConfiguration.build()) || super.onSupportNavigateUp();
     }
 }

@@ -8,11 +8,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.mig.R;
 import com.example.mig.adapters.SliderAdapter;
+import com.example.mig.databinding.ActivityIntroBinding;
 import com.example.mig.model.SliderModal;
+import com.example.mig.utils.Utils;
+import com.example.mig.viewmodel.IntroViewModel;
 
 import java.util.ArrayList;
 
@@ -21,26 +25,45 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class IntroActivity extends AppCompatActivity {
 
-    // creating variables for view pager,
-    // liner layout, adapter and our array list.
     private ViewPager viewPager;
     private LinearLayout dotsLL;
-    SliderAdapter adapter;
+    private SliderAdapter adapter;
     private ArrayList<SliderModal> sliderModalArrayList;
     private TextView[] dots;
-    int size;
-    Button skipBtn;
+    private int size;
+    private Button nextBtn, skipBtn;
+    private ActivityIntroBinding binding;
+    private IntroViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_intro);
+        binding = ActivityIntroBinding.inflate(getLayoutInflater());
+        viewModel = new ViewModelProvider(this).get(IntroViewModel.class);
+        if (viewModel.isIntroSkipped()) {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+            return;
+        }
+        Utils.checkLocale(this, viewModel.getLangLocale());
+        setContentView(binding.getRoot());
 
         // initializing all our views.
         viewPager = findViewById(R.id.idViewPager);
         dotsLL = findViewById(R.id.idLLDots);
+        nextBtn = findViewById(R.id.btnNext);
+        nextBtn.setOnClickListener(v -> {
+            if (viewPager.getCurrentItem() == 2) {
+                viewModel.setIntroSkipped(true);
+                startActivity(new Intent(this, MainActivity.class));
+                finish();
+            } else {
+                viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
+            }
+        });
         skipBtn = findViewById(R.id.idBtnSkip);
         skipBtn.setOnClickListener(view -> {
+            viewModel.setIntroSkipped(true);
             startActivity(new Intent(this, MainActivity.class));
             finish();
         });
@@ -106,9 +129,9 @@ public class IntroActivity extends AppCompatActivity {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             if (position == 2) {
-                skipBtn.setText(getString(R.string.slide_button2));
+                nextBtn.setText(getString(R.string.slide_button2));
             } else {
-                skipBtn.setText(getString(R.string.slide_button));
+                nextBtn.setText(getString(R.string.next));
             }
         }
 

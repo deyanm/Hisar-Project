@@ -21,6 +21,7 @@ import com.example.mig.adapters.ImageSliderAdapter;
 import com.example.mig.databinding.ActivityAboutPoiBinding;
 import com.example.mig.model.Poi;
 import com.example.mig.model.SliderItem;
+import com.example.mig.utils.Utils;
 import com.example.mig.viewmodel.AboutPoiViewModel;
 import com.microsoft.maps.Geopoint;
 import com.microsoft.maps.MapAnimationKind;
@@ -54,6 +55,7 @@ public class AboutPoiActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityAboutPoiBinding.inflate(getLayoutInflater());
         viewModel = new ViewModelProvider(this).get(AboutPoiViewModel.class);
+        Utils.checkLocale(this, viewModel.getLangLocale());
         setContentView(binding.getRoot());
 
         poi = (Poi) getIntent().getSerializableExtra("POI");
@@ -100,7 +102,9 @@ public class AboutPoiActivity extends AppCompatActivity {
 
 
         sliderView.setOnIndicatorClickListener(position -> Log.i("GGG", "onIndicatorClicked: " + sliderView.getCurrentPagePosition()));
-        addItems(poi.getImages());
+        if (poi.getImages() != null && poi.getImages().size() > 0) {
+            addItems(poi.getImages());
+        }
     }
 
     private void bindViews() {

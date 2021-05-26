@@ -35,11 +35,30 @@
     <string name="slide_1_text">Find places near you</string>
     <string name="slide_2_text">Choose a new adventure</string>
     <string name="slide_3_text">Rediscover new places</string>
-    <string name="slide_button">Skip</string>
     <string name="slide_button2">Explore!</string>
     <string name="title_location_permission">Location</string>
     <string name="text_location_permission">The application must have permission to find location</string>
     <string name="ok">OK</string>
     <string name="my_loc">My location</string>
     <string name="images_title">Images</string>
+    <string name="permission_rationale">Location permission is needed</string>
+    <string name="permission_denied_explanation">Permission was denied, but is needed for core functionality.</string>
+    <string name="away">km away</string>
+    <string name="there_are_no_places_to_show">There are no places to show</string>
+    <string name="comeback_later">Comeback later</string>
+    <string name="search_hint">Search…</string>
+    <string name="search">Search</string>
+    <string name="skip">Skip</string>
+    <string name="next">Next</string>
+    <string name="all">All</string>
+    <string name="share_via">Share via</string>
+    <string name="app_data">Loading application data…</string>
+    <string name="there_are_no_images_to_show">There are no images to show</string>
+    <string name="spinner">Spinner</string>
+    <array name="spinner">
+        <item>@string/all</item>
+        <item>@string/title_activity_places</item>
+        <item>@string/title_activity_hotels</item>
+        <item>@string/title_activity_restaurants</item>
+    </array>
 </resources>

@@ -27,11 +27,15 @@ public class InfoViewModel extends ViewModel {
         return place;
     }
 
-    public void getCurrentPlace() {
-        repository.getCurrentPlace()
+    public void getCurrentPlace(String langCode) {
+        repository.getCurrentPlace(langCode)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(returnPlace -> place.setValue(returnPlace), error -> Log.d(TAG, "error getting place " + error.getMessage()));
+    }
+
+    public String getLangLocale() {
+        return repository.getLanguageLocale();
     }
 
 }

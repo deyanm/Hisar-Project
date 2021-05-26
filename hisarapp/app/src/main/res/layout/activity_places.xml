@@ -26,43 +26,71 @@
             app:queryHint="Type something..." />
     </RelativeLayout>
 
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/chip_group"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/search_layout"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        app:singleSelection="true">
+    <!--    <com.google.android.material.chip.ChipGroup-->
+    <!--        android:id="@+id/chip_group"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_below="@id/search_layout"-->
+    <!--        android:paddingStart="10dp"-->
+    <!--        android:paddingEnd="10dp"-->
+    <!--        app:singleSelection="true">-->
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/placesChip"
-            style="@style/CustomChipChoice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="@string/title_activity_places" />
+    <!--        <com.google.android.material.chip.Chip-->
+    <!--            android:id="@+id/placesChip"-->
+    <!--            style="@style/CustomChipChoice"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:checked="true"-->
+    <!--            android:text="@string/title_activity_places" />-->
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/hotelsChip"
-            style="@style/CustomChipChoice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/title_activity_hotels" />
+    <!--        <com.google.android.material.chip.Chip-->
+    <!--            android:id="@+id/hotelsChip"-->
+    <!--            style="@style/CustomChipChoice"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:text="@string/title_activity_hotels" />-->
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/restChip"
-            style="@style/CustomChipChoice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/title_activity_restaurants" />
+    <!--        <com.google.android.material.chip.Chip-->
+    <!--            android:id="@+id/restChip"-->
+    <!--            style="@style/CustomChipChoice"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:text="@string/title_activity_restaurants" />-->
 
-    </com.google.android.material.chip.ChipGroup>
+    <!--    </com.google.android.material.chip.ChipGroup>-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/placesRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/chip_group" />
+        android:layout_below="@id/search_layout" />
+
+    <RelativeLayout
+        android:id="@+id/nothingShow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/search_layout"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/noTv"
+            style="@style/TitleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="@string/there_are_no_places_to_show"
+            android:textSize="20sp" />
+
+        <TextView
+            style="@style/DefaultTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/noTv"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="@string/comeback_later"
+            android:textStyle="normal" />
+    </RelativeLayout>
 
 </RelativeLayout>

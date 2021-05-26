@@ -7,10 +7,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.mig.R;
 import com.example.mig.model.SliderItem;
 import com.smarteist.autoimageslider.SliderViewAdapter;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +42,7 @@ public class ImageSliderAdapter extends SliderViewAdapter<ImageSliderAdapter.Sli
 
         int id = context.getResources().getIdentifier(sliderItem.getImageUrl(), "drawable", context.getPackageName());
 
-        Picasso.get().load(id).centerCrop().fit().into(viewHolder.imageViewBackground);
+        Glide.with(context).load(id).centerCrop().fitCenter().into(viewHolder.imageViewBackground);
 
 //        viewHolder.itemView.setOnClickListener(v -> Toast.makeText(context, "This is item in position " + position, Toast.LENGTH_SHORT).show());
     }

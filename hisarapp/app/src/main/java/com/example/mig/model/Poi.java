@@ -63,6 +63,10 @@ public class Poi implements Serializable {
     @Expose
     private List<String> images;
 
+    private boolean isFav;
+
+    private float distanceKm;
+
     public Integer getId() {
         return id;
     }
@@ -205,5 +209,21 @@ public class Poi implements Serializable {
 
     public void setImages(List<String> images) {
         this.images = images;
+    }
+
+    public boolean isFav() {
+        return isFav;
+    }
+
+    public void setFav(boolean fav) {
+        isFav = fav;
+    }
+
+    public float getDistanceKm() {
+        return distanceKm;
+    }
+
+    public void setDistanceKm(float distanceKm) {
+        this.distanceKm = distanceKm;
     }
 }

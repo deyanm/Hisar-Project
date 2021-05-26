@@ -10,370 +10,385 @@
 
     <include layout="@layout/toolbar" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/button1"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:elevation="0dp"
+                android:focusable="true"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeColor="@color/colorPrimary">
 
-                <LinearLayout
+                <ImageView
+                    android:id="@+id/image1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/kromleh_1x1" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/button2"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:elevation="0dp"
+                android:focusable="true"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeColor="@color/colorPrimary">
+
+                <ImageView
+                    android:id="@+id/image2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/piroboridava_1x1" />
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/mapBtn"
+                android:layout_width="110dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/home_button_bg"
+                android:foreground="?android:selectableItemBackground"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@mipmap/map" />
+
+                <TextView
+                    android:id="@+id/mapTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_alignParentBottom="true"
+                    android:gravity="start"
+                    android:text="@string/title_activity_map"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/button1"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_margin="20dp"
-                        android:clickable="true"
-                        android:elevation="0dp"
-                        android:focusable="true"
-                        app:cardCornerRadius="10dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:strokeColor="@color/colorPrimary">
+            <RelativeLayout
+                android:id="@+id/infoBtn"
+                android:layout_width="110dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_toEndOf="@id/mapBtn"
+                android:layout_weight="1"
+                android:background="@drawable/home_button_bg"
+                android:foreground="?android:selectableItemBackground"
+                android:orientation="vertical"
+                android:padding="15dp">
 
-                        <ImageView
-                            android:id="@+id/image1"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:src="@drawable/kromleh_1x1" />
-                    </com.google.android.material.card.MaterialCardView>
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@mipmap/information" />
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/button2"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_margin="20dp"
-                        android:clickable="true"
-                        android:elevation="0dp"
-                        android:focusable="true"
-                        app:cardCornerRadius="10dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:strokeColor="@color/colorPrimary">
-
-                        <ImageView
-                            android:id="@+id/image2"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:src="@drawable/piroboridava_1x1" />
-                    </com.google.android.material.card.MaterialCardView>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/linearLayout1"
+                <TextView
+                    android:id="@+id/infoTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="35dp"
-                    android:layout_weight="1"
-                    android:baselineAligned="false"
-                    android:orientation="horizontal">
+                    android:layout_alignParentBottom="true"
+                    android:gravity="start"
+                    android:text="@string/title_activity_info"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
 
-                    <RelativeLayout
-                        android:id="@+id/mapBtn"
-                        android:layout_width="110dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/home_button_bg"
-                        android:foreground="?android:selectableItemBackground"
-                        android:orientation="vertical"
-                        android:padding="15dp">
+            <RelativeLayout
+                android:id="@+id/placesBtn"
+                android:layout_width="110dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_toEndOf="@id/infoBtn"
+                android:layout_weight="1"
+                android:background="@drawable/home_button_bg"
+                android:foreground="?android:selectableItemBackground"
+                android:orientation="vertical"
+                android:padding="15dp">
 
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@mipmap/map" />
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@mipmap/gate" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:gravity="start"
-                            android:text="@string/title_activity_map"
-                            android:textColor="@color/white"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/infoBtn"
-                        android:layout_width="110dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/home_button_bg"
-                        android:foreground="?android:selectableItemBackground"
-                        android:orientation="vertical"
-                        android:padding="15dp">
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@mipmap/information" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:gravity="start"
-                            android:text="@string/title_activity_info"
-                            android:textColor="@color/white"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/placesBtn"
-                        android:layout_width="110dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/home_button_bg"
-                        android:foreground="?android:selectableItemBackground"
-                        android:orientation="vertical"
-                        android:padding="15dp">
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@mipmap/gate" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:gravity="start"
-                            android:text="@string/title_activity_places"
-                            android:textColor="@color/white"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </RelativeLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/linearLayout2"
+                <TextView
+                    android:id="@+id/placesTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="35dp"
-                    android:layout_weight="1"
-                    android:baselineAligned="false"
-                    android:orientation="horizontal">
+                    android:layout_alignParentBottom="true"
+                    android:gravity="start"
+                    android:text="@string/title_activity_places"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
 
-                    <RelativeLayout
-                        android:id="@+id/galleryBtn"
-                        android:layout_width="110dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/home_button_bg"
-                        android:foreground="?android:selectableItemBackground"
-                        android:orientation="vertical"
-                        android:padding="15dp">
+        </LinearLayout>
 
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@mipmap/attach" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:gravity="start"
-                            android:text="@string/title_activity_gallery"
-                            android:textColor="@color/white"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </RelativeLayout>
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
 
-                    <RelativeLayout
-                        android:id="@+id/hotelsBtn"
-                        android:layout_width="110dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/home_button_bg"
-                        android:foreground="?android:selectableItemBackground"
-                        android:orientation="vertical"
-                        android:padding="15dp">
+            <RelativeLayout
+                android:id="@+id/galleryBtn"
+                android:layout_width="110dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/home_button_bg"
+                android:foreground="?android:selectableItemBackground"
+                android:orientation="vertical"
+                android:padding="15dp">
 
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@mipmap/bed" />
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@mipmap/attach" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:gravity="start"
-                            android:text="@string/title_activity_hotels"
-                            android:textColor="@color/white"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/restBtn"
-                        android:layout_width="110dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/home_button_bg"
-                        android:foreground="?android:selectableItemBackground"
-                        android:orientation="vertical"
-                        android:padding="15dp">
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@mipmap/restaurant" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:gravity="start"
-                            android:text="@string/title_activity_restaurants"
-                            android:textColor="@color/white"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </RelativeLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/linearLayout3"
+                <TextView
+                    android:id="@+id/galleryTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="35dp"
-                    android:layout_weight="1"
-                    android:baselineAligned="false"
-                    android:orientation="horizontal">
+                    android:layout_alignParentBottom="true"
+                    android:gravity="start"
+                    android:text="@string/title_activity_gallery"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
 
-                    <RelativeLayout
-                        android:id="@+id/migBtn"
-                        android:layout_width="110dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/home_button_bg"
-                        android:foreground="?android:selectableItemBackground"
-                        android:orientation="vertical"
-                        android:padding="15dp">
+            <RelativeLayout
+                android:id="@+id/hotelsBtn"
+                android:layout_width="110dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/home_button_bg"
+                android:foreground="?android:selectableItemBackground"
+                android:orientation="vertical"
+                android:padding="15dp">
 
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@mipmap/group" />
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@mipmap/bed" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:gravity="start"
-                            android:text="@string/title_activity_about"
-                            android:textColor="@color/white"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </RelativeLayout>
+                <TextView
+                    android:id="@+id/hotelsTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="start"
+                    android:text="@string/title_activity_hotels"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
 
-                    <RelativeLayout
-                        android:id="@+id/moreBtn"
-                        android:layout_width="110dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/home_button_bg"
-                        android:foreground="?android:selectableItemBackground"
-                        android:orientation="vertical"
-                        android:padding="15dp">
+            <RelativeLayout
+                android:id="@+id/restBtn"
+                android:layout_width="110dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/home_button_bg"
+                android:foreground="?android:selectableItemBackground"
+                android:orientation="vertical"
+                android:padding="15dp">
 
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@mipmap/more" />
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@mipmap/restaurant" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:gravity="start"
-                            android:text="@string/title_activity_more"
-                            android:textColor="@color/white"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </RelativeLayout>
+                <TextView
+                    android:id="@+id/restTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="start"
+                    android:text="@string/title_activity_restaurants"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
 
-                    <RelativeLayout
-                        android:layout_width="110dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/home_button_bg"
-                        android:orientation="vertical"
-                        android:padding="15dp"
-                        android:visibility="invisible">
+        </LinearLayout>
 
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@mipmap/attach" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:gravity="start"
-                            android:text="@string/title_activity_gallery"
-                            android:textColor="@color/white"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </RelativeLayout>
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
 
-                </LinearLayout>
-            </LinearLayout>
-        </ScrollView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <RelativeLayout
+                android:id="@+id/migBtn"
+                android:layout_width="110dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/home_button_bg"
+                android:foreground="?android:selectableItemBackground"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@mipmap/group" />
+
+                <TextView
+                    android:id="@+id/migTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="start"
+                    android:text="@string/title_activity_about"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/moreBtn"
+                android:layout_width="110dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/home_button_bg"
+                android:foreground="?android:selectableItemBackground"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@mipmap/more" />
+
+                <TextView
+                    android:id="@+id/moreTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="start"
+                    android:text="@string/title_activity_more"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="110dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/home_button_bg"
+                android:orientation="vertical"
+                android:padding="15dp"
+                android:visibility="invisible">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@mipmap/attach" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="start"
+                    android:text="@string/title_activity_gallery"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </LinearLayout>
 </LinearLayout>

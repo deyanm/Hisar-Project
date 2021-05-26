@@ -34,36 +34,40 @@
                 android:textSize="16sp" />
 
             <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/langSwitch"
+                android:id="@+id/changeLangSwitch"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:checked="true" />
+                android:layout_height="wrap_content" />
+
         </LinearLayout>
 
         <RadioGroup
-            android:id="@+id/radioGroupLang"
+            android:id="@+id/changeLangGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:checkedButton="@id/engRadio"
             android:visibility="gone">
 
-            <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/engRadio"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/english" />
-
-            <com.google.android.material.radiobutton.MaterialRadioButton
+            <RadioButton
                 android:id="@+id/bgRadio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:tag="bg"
                 android:text="@string/bulgarian" />
 
-            <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/romRadio"
+            <RadioButton
+                android:id="@+id/roRadio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:tag="ro"
                 android:text="@string/romanian" />
+
+            <RadioButton
+                android:id="@+id/enRadio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:tag="en"
+                android:text="@string/english" />
+
         </RadioGroup>
+
     </LinearLayout>
 </LinearLayout>

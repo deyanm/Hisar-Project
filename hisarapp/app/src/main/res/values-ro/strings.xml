@@ -36,7 +36,24 @@
     <string name="slide_1_text">Găsiți locuri în apropiere</string>
     <string name="slide_2_text">Alegeți o nouă aventură</string>
     <string name="slide_3_text">Redescoperiți locuri noi</string>
-    <string name="slide_button">Ocolire</string>
     <string name="slide_button2">Explora!</string>
     <string name="ok">OK</string>
+    <string name="away">km distanță</string>
+    <string name="title_location_permission">Locație</string>
+    <string name="text_location_permission">Aplicația trebuie să aibă permisiunea de a găsi locația</string>
+    <string name="my_loc">Locatia mea</string>
+    <string name="images_title">Imagini</string>
+    <string name="permission_rationale">Este necesară permisiunea de localizare</string>
+    <string name="permission_denied_explanation">Permisiunea a fost refuzată, dar este necesară pentru funcționalitatea de bază.</string>
+    <string name="there_are_no_places_to_show">Nu există locuri de arătat</string>
+    <string name="comeback_later">Vino mai târziu</string>
+    <string name="search_hint">Căutare...</string>
+    <string name="search">Căutare</string>
+    <string name="skip">Ocolire</string>
+    <string name="next">Următorul</string>
+    <string name="all">Toate</string>
+    <string name="share_via">Distribuiți prin</string>
+    <string name="app_data">Se încarcă datele aplicației ...</string>
+    <string name="there_are_no_images_to_show">Nu există imagini de afișat</string>
+    <string name="spinner">Spinner</string>
 </resources>

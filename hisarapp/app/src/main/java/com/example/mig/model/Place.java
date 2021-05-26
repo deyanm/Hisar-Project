@@ -1,11 +1,8 @@
 package com.example.mig.model;
 
-import androidx.room.Entity;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Entity(tableName = "place")
 public class Place {
 
     @SerializedName("id")

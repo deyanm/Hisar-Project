@@ -145,11 +145,11 @@ public class Repository {
 //
 //    }
 
-    public Observable<Place> getCurrentPlace() {
+    public Observable<Place> getCurrentPlace(String langCode) {
         return Observable.create(emitter -> {
             try {
                 Place place;
-                switch (Locale.getDefault().getLanguage()) {
+                switch (langCode) {
                     case "en":
                         place = hisarResponse.getEn().getPlaceList().get(getCurrentPlaceId() - 1);
                         break;
@@ -229,5 +229,13 @@ public class Repository {
 
     public String getLanguageLocale() {
         return sharedPreferences.getString(Constants.LANG_KEY, "AUTO");
+    }
+
+    public void setIntroSkipped(boolean skipped) {
+        sharedPreferences.edit().putBoolean(Constants.INTRO_KEY, skipped).apply();
+    }
+
+    public boolean isIntroSkipped() {
+        return sharedPreferences.getBoolean(Constants.INTRO_KEY, false);
     }
 }

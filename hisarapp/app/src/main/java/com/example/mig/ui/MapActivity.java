@@ -12,12 +12,15 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,14 +30,17 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.core.os.ConfigurationCompat;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.bumptech.glide.Glide;
 import com.example.mig.BuildConfig;
 import com.example.mig.R;
 import com.example.mig.databinding.ActivityMapBinding;
 import com.example.mig.model.Place;
 import com.example.mig.model.Poi;
 import com.example.mig.utils.Constants;
+import com.example.mig.utils.Utils;
 import com.example.mig.viewmodel.MapViewModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -52,6 +58,9 @@ import com.microsoft.maps.MapView;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
@@ -64,14 +73,18 @@ public class MapActivity extends AppCompatActivity {
     private MapView mMapView;
     private MapElementLayer mPinLayer;
     private static final Geopoint HISAR_LOC = new Geopoint(42.5041069, 24.7034471);
+    private static final Geopoint PIRO_LOC = new Geopoint(45.9961283, 27.2476761);
     private Poi selectedSight;
     private FusedLocationProviderClient mFusedLocationClient;
+    private List<Poi> combinedPois;
+    private Place currentPlace;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMapBinding.inflate(getLayoutInflater());
         mapViewModel = new ViewModelProvider(this).get(MapViewModel.class);
+        Utils.checkLocale(this, mapViewModel.getLangLocale());
         setContentView(binding.getRoot());
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -86,14 +99,13 @@ public class MapActivity extends AppCompatActivity {
         mPinLayer = new MapElementLayer();
         mMapView.getLayers().add(mPinLayer);
 
-        mapViewModel.getPlace().observe(this, place -> {
-            Log.d(TAG, place.getName());
-            selectedSight = place.getPois().getSights().get(0);
-            showSightInfo(selectedSight);
-            showPins(place);
-        });
-        mapViewModel.getCurrentPlace();
+        bindViews();
+    }
 
+    private void bindViews() {
+        binding.myLocBtn.setOnClickListener(v -> {
+            getLastLocation();
+        });
         binding.directionsBtn.setOnClickListener(view -> {
             Uri gmmIntentUri = Uri.parse("google.navigation:q=" + selectedSight.getLocation().getLat() + "," + selectedSight.getLocation().getLon());
             Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
@@ -107,40 +119,30 @@ public class MapActivity extends AppCompatActivity {
             String shareBody = selectedSight.getShortDescription();
             sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, selectedSight.getName());
             sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-            startActivity(Intent.createChooser(sharingIntent, "Share via"));
-        });
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        binding.myLocBtn.setOnClickListener(view -> {
-            getLastLocation();
-        });
-        mapViewModel.getLocation().observe(this, s -> {
-            Geopoint geopoint = new Geopoint(s.getLatitude(), s.getLongitude());
-            mMapView.setScene(
-                    MapScene.createFromLocationAndZoomLevel(geopoint, 15),
-                    MapAnimationKind.NONE);
-            MapIcon pushpin = new MapIcon();
-            pushpin.setImage(getPinImage());
-            pushpin.setLocation(geopoint);
-            pushpin.setTitle(getString(R.string.my_loc));
-
-            mPinLayer.getElements().add(pushpin);
+            startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)));
         });
     }
 
     private void showPins(Place place) {
-        for (Poi sight : place.getPois().getSights()) {
-            Geopoint location = new Geopoint(sight.getLocation().getLat(), sight.getLocation().getLon());
-            String title = sight.getName();
+        combinedPois = new ArrayList<>();
+        combinedPois.addAll(place.getPois().getSights());
+        combinedPois.addAll(place.getPois().getHotels());
+        combinedPois.addAll(place.getPois().getRestaurants());
+        for (Poi poi : combinedPois) {
+            if (poi.getLocation() != null) {
+                Geopoint location = new Geopoint(poi.getLocation().getLat(), poi.getLocation().getLon());
+                String title = poi.getName();
 
-            MapIcon pushpin = new MapIcon();
-            pushpin.setLocation(location);
-            pushpin.setTitle(title);
+                MapIcon pushpin = new MapIcon();
+                pushpin.setLocation(location);
+                pushpin.setTitle(title);
 
-            mPinLayer.getElements().add(pushpin);
+                mPinLayer.getElements().add(pushpin);
+            }
         }
 
         mPinLayer.addOnMapElementTappedListener(mapElementTappedEventArgs -> {
-            for (Poi sight1 : place.getPois().getSights()) {
+            for (Poi sight1 : combinedPois) {
                 float[] distance = new float[1];
                 Location.distanceBetween(sight1.getLocation().getLat(), sight1.getLocation().getLon(), mapElementTappedEventArgs.location.getPosition().getLatitude(), mapElementTappedEventArgs.location.getPosition().getLongitude(), distance);
                 if (distance[0] < 50.0) {
@@ -155,8 +157,12 @@ public class MapActivity extends AppCompatActivity {
 
     private void showSightInfo(Poi sight) {
         binding.placeTitle.setText(sight.getName());
-        int id = this.getResources().getIdentifier(sight.getImages().get(0), "drawable", this.getPackageName());
-        binding.placeImage.setImageResource(id);
+        if (sight.getImages() != null && sight.getImages().get(0) != null) {
+            int id = this.getResources().getIdentifier(sight.getImages().get(0), "drawable", this.getPackageName());
+            Glide.with(this).load(id).centerCrop().into(binding.placeImage);
+        } else {
+            Glide.with(this).clear(binding.placeImage);
+        }
         binding.placeText.setText(sight.getShortDescription());
     }
 
@@ -164,9 +170,16 @@ public class MapActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         mMapView.onStart();
-        mMapView.setScene(
-                MapScene.createFromLocationAndZoomLevel(HISAR_LOC, 15),
-                MapAnimationKind.NONE);
+        if (mapViewModel.getCurrentPlaceId() == 1) {
+            mMapView.setScene(
+                    MapScene.createFromLocationAndZoomLevel(HISAR_LOC, 15),
+                    MapAnimationKind.NONE);
+        } else if (mapViewModel.getCurrentPlaceId() == 2) {
+            mMapView.setScene(
+                    MapScene.createFromLocationAndZoomLevel(PIRO_LOC, 15),
+                    MapAnimationKind.NONE);
+        }
+
     }
 
     @Override
@@ -176,6 +189,37 @@ public class MapActivity extends AppCompatActivity {
 //        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 //            getLastLocation();
 //        }
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+            mapViewModel.getPlace().observe(this, place -> {
+                if (place.getPois().getSights().isEmpty()) {
+                    binding.noPlacesLayout.setVisibility(View.VISIBLE);
+                    binding.placeCardLayout.setVisibility(View.GONE);
+                    return;
+                } else {
+                    binding.noPlacesLayout.setVisibility(View.GONE);
+                    binding.placeCardLayout.setVisibility(View.VISIBLE);
+                }
+                selectedSight = place.getPois().getSights().get(0);
+                showSightInfo(selectedSight);
+                showPins(place);
+                currentPlace = place;
+            });
+            String langCode = ConfigurationCompat.getLocales(getResources().getConfiguration()).get(0).getLanguage();
+            mapViewModel.getCurrentPlace(langCode);
+
+            mapViewModel.getLocation().observe(this, s -> {
+                Geopoint geopoint = new Geopoint(s.getLatitude(), s.getLongitude());
+                mMapView.setScene(
+                        MapScene.createFromLocationAndZoomLevel(geopoint, 15),
+                        MapAnimationKind.NONE);
+                MapIcon pushpin = new MapIcon();
+                pushpin.setImage(getPinImage());
+                pushpin.setLocation(geopoint);
+                pushpin.setTitle(getString(R.string.my_loc));
+                mPinLayer.getElements().add(pushpin);
+            });
+        }, 700);
     }
 
     @Override
@@ -210,8 +254,98 @@ public class MapActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu, menu);
+        getMenuInflater().inflate(R.menu.map_menu, menu);
+
+        MenuItem item = menu.findItem(R.id.spinner);
+        Spinner spinner = (Spinner) item.getActionView();
+        spinner.setSelection(0, true);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        if (combinedPois != null) {
+                            mPinLayer.getElements().clear();
+                            for (Poi poi : combinedPois) {
+                                if (poi.getLocation() != null) {
+                                    Geopoint location = new Geopoint(poi.getLocation().getLat(), poi.getLocation().getLon());
+                                    String title = poi.getName();
+
+                                    MapIcon pushpin = new MapIcon();
+                                    pushpin.setLocation(location);
+                                    pushpin.setTitle(title);
+
+                                    mPinLayer.getElements().add(pushpin);
+                                }
+                            }
+                        }
+                        break;
+                    case 1:
+                        mPinLayer.getElements().clear();
+                        if (currentPlace != null) {
+                            mPinLayer.getElements().clear();
+                            for (Poi poi : currentPlace.getPois().getSights()) {
+                                if (poi.getLocation() != null) {
+                                    Geopoint location = new Geopoint(poi.getLocation().getLat(), poi.getLocation().getLon());
+                                    String title = poi.getName();
+
+                                    MapIcon pushpin = new MapIcon();
+                                    pushpin.setLocation(location);
+                                    pushpin.setTitle(title);
+
+                                    mPinLayer.getElements().add(pushpin);
+                                }
+                            }
+                        }
+                        break;
+                    case 2:
+                        mPinLayer.getElements().clear();
+                        if (currentPlace != null) {
+                            for (Poi poi : currentPlace.getPois().getHotels()) {
+                                if (poi.getLocation() != null) {
+                                    Geopoint location = new Geopoint(poi.getLocation().getLat(), poi.getLocation().getLon());
+                                    String title = poi.getName();
+
+                                    MapIcon pushpin = new MapIcon();
+                                    pushpin.setLocation(location);
+                                    pushpin.setTitle(title);
+
+                                    mPinLayer.getElements().add(pushpin);
+                                }
+                            }
+                        }
+                        break;
+                    case 3:
+                        mPinLayer.getElements().clear();
+                        if (currentPlace != null) {
+                            for (Poi poi : currentPlace.getPois().getRestaurants()) {
+                                if (poi.getLocation() != null) {
+                                    Geopoint location = new Geopoint(poi.getLocation().getLat(), poi.getLocation().getLon());
+                                    String title = poi.getName();
+
+                                    MapIcon pushpin = new MapIcon();
+                                    pushpin.setLocation(location);
+                                    pushpin.setTitle(title);
+
+                                    mPinLayer.getElements().add(pushpin);
+                                }
+                            }
+                        }
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.spinner, R.layout.spinner_item);
+        adapter.setDropDownViewResource(R.layout.spinner_item);
+
+        spinner.setAdapter(adapter);
         return true;
     }
 
@@ -330,8 +464,7 @@ public class MapActivity extends AppCompatActivity {
     }
 
     @Override
-    public void
-    onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if (requestCode == MY_PERMISSIONS_REQUEST_LOCATION) {

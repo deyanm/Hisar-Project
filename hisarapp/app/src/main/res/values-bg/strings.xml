@@ -36,11 +36,24 @@
     <string name="slide_1_text">Намери места близо до теб</string>
     <string name="slide_2_text">Избери ново приключение</string>
     <string name="slide_3_text">Преоткрий нови места</string>
-    <string name="slide_button">Пропусни</string>
     <string name="slide_button2">Преоткрий!</string>
     <string name="my_loc">Моето местоположение</string>
     <string name="title_location_permission">Местоположение</string>
     <string name="text_location_permission">Трябва разрешение за намиране на местоположението</string>
     <string name="ok">OK</string>
     <string name="images_title">Снимки</string>
+    <string name="away">км далеч</string>
+    <string name="permission_rationale">Нужно е разрешение за местоположението</string>
+    <string name="permission_denied_explanation">Разрешението е отказано, но е необходимо за основната функционалност.</string>
+    <string name="there_are_no_places_to_show">Няма места за показване</string>
+    <string name="comeback_later">Опитайте отново по-късно</string>
+    <string name="search_hint">Търсене…</string>
+    <string name="search">Търсене</string>
+    <string name="skip">Пропусни</string>
+    <string name="next">Следващ</string>
+    <string name="all">Всички</string>
+    <string name="share_via">Сподели чрез</string>
+    <string name="app_data">Зареждане на данните…</string>
+    <string name="there_are_no_images_to_show">Няма снимки за показване</string>
+    <string name="spinner">Spinner</string>
 </resources>

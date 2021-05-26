@@ -111,4 +111,8 @@ public class MainViewModel extends ViewModel {
     public void setCurrentFileVersion(int version) {
         repository.setCurrentFileVersion(version);
     }
+
+    public String getLangLocale() {
+        return repository.getLanguageLocale();
+    }
 }

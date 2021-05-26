@@ -13,14 +13,43 @@
         android:layout_width="match_parent"
         android:layout_height="170dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         app:cardCornerRadius="10dp">
 
         <RelativeLayout
+            android:id="@+id/noPlacesLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/no_place_tv"
+                style="@style/TitleTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="@string/there_are_no_places_to_show"
+                android:textSize="16sp" />
+
+            <TextView
+                style="@style/DefaultTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/no_place_tv"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="@string/comeback_later"
+                android:textStyle="normal" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/placeCardLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp">
+            android:padding="5dp"
+            android:visibility="gone">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardPlaceImage"
@@ -43,8 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_toEndOf="@id/cardPlaceImage"
-                android:text="Hello here" />
+                android:layout_toEndOf="@id/cardPlaceImage" />
 
             <TextView
                 style="@style/DefaultTextView"
@@ -55,7 +83,6 @@
                 android:layout_toEndOf="@id/cardPlaceImage"
                 android:drawableStart="@drawable/ic_pin_location"
                 android:drawablePadding="5dp"
-                android:text="Location"
                 android:textSize="12sp" />
 
             <TextView
@@ -66,7 +93,6 @@
                 android:layout_above="@id/buttonsGroup"
                 android:layout_below="@id/cardPlaceImage"
                 android:layout_marginTop="10dp"
-                android:text="Hello this is fun place to stay"
                 android:textSize="12sp"
                 android:textStyle="normal" />
 
@@ -121,7 +147,10 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
         app:cardCornerRadius="10dp">
 
         <FrameLayout
@@ -133,8 +162,8 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="end|bottom"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp">
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="2dp">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/myLocBtn"

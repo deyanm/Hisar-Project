@@ -16,10 +16,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="5dp"
             android:paddingStart="10dp"
-            android:paddingBottom="10dp"
-            android:paddingEnd="10dp">
+            android:paddingTop="5dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="10dp">
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
@@ -58,9 +58,13 @@
                     android:textStyle="normal" />
 
                 <ImageView
+                    android:id="@+id/addToFav"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/placeTypeAwayTv"
+                    android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
+                    android:padding="5dp"
                     android:src="@drawable/ic_baseline_favorite_border_24"
                     app:tint="@color/colorPrimary" />
 

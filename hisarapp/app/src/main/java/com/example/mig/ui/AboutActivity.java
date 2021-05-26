@@ -13,12 +13,14 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.os.ConfigurationCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.mig.R;
 import com.example.mig.adapters.ImageSliderAdapter;
 import com.example.mig.databinding.ActivityAboutBinding;
 import com.example.mig.model.SliderItem;
+import com.example.mig.utils.Utils;
 import com.example.mig.viewmodel.AboutViewModel;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
@@ -32,8 +34,8 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class AboutActivity extends AppCompatActivity {
 
-    ActivityAboutBinding binding;
-    AboutViewModel viewModel;
+    private ActivityAboutBinding binding;
+    private AboutViewModel viewModel;
     private SliderView sliderView;
     private ImageSliderAdapter adapter;
 
@@ -42,6 +44,7 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityAboutBinding.inflate(getLayoutInflater());
         viewModel = new ViewModelProvider(this).get(AboutViewModel.class);
+        Utils.checkLocale(this, viewModel.getLangLocale());
         setContentView(binding.getRoot());
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -49,7 +52,8 @@ public class AboutActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        viewModel.getCurrentPlace();
+        String langCode = ConfigurationCompat.getLocales(getResources().getConfiguration()).get(0).getLanguage();
+        viewModel.getCurrentPlace(langCode);
         viewModel.getPlace().observe(this, place -> {
             if (place != null) {
                 binding.placeNameTv.setText(place.getMig().getName());
