@@ -102,6 +102,7 @@ public class SettingsLanguageFragment extends Fragment {
             Configuration config = resources.getConfiguration();
             config.setLocale(locale);
             resources.updateConfiguration(config, resources.getDisplayMetrics());
+            updateUI(toolbar);
         });
 
         binding.changeLangSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -114,6 +115,7 @@ public class SettingsLanguageFragment extends Fragment {
                 Configuration config = resources.getConfiguration();
                 config.setLocale(systemLocale);
                 resources.updateConfiguration(config, resources.getDisplayMetrics());
+                updateUI(toolbar);
             } else {
                 binding.changeLangGroup.setVisibility(View.VISIBLE);
                 if (binding.changeLangGroup.getCheckedRadioButtonId() != -1) {
@@ -122,5 +124,13 @@ public class SettingsLanguageFragment extends Fragment {
             }
         });
 
+    }
+
+    public void updateUI(Toolbar toolbar) {
+        toolbar.setTitle(getString(R.string.language));
+        binding.roRadio.setText(getString(R.string.romanian));
+        binding.bgRadio.setText(getString(R.string.bulgarian));
+        binding.enRadio.setText(getString(R.string.english));
+        binding.switchTv.setText(getString(R.string.auto_lang));
     }
 }

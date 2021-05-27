@@ -63,7 +63,8 @@
         android:id="@+id/placesRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/search_layout" />
+        android:layout_below="@id/search_layout"
+        tools:listitem="@layout/item_place" />
 
     <RelativeLayout
         android:id="@+id/nothingShow"

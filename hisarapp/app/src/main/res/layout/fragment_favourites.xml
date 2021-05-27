@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -8,62 +9,9 @@
 
     <include layout="@layout/toolbar" />
 
-    <LinearLayout
-        android:id="@+id/generalLayout"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerFavourites"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:background="@drawable/layout_bg"
-        android:orientation="vertical"
-        android:padding="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                style="@style/DefaultTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/auto_lang"
-                android:textSize="16sp" />
-
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/langSwitch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:checked="true" />
-        </LinearLayout>
-
-        <RadioGroup
-            android:id="@+id/radioGroupLang"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:checkedButton="@id/engRadio"
-            android:visibility="gone">
-
-            <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/engRadio"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/english" />
-
-            <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/bgRadio"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/bulgarian" />
-
-            <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/romRadio"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/romanian" />
-        </RadioGroup>
-    </LinearLayout>
+        tools:listitem="@layout/item_fav" />
 </LinearLayout>

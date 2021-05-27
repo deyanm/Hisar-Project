@@ -92,7 +92,7 @@ public class MapActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mMapView = new MapView(this, MapRenderMode.RASTER);
+        mMapView = new MapView(this, MapRenderMode.VECTOR);
         mMapView.setCredentialsKey(BuildConfig.CREDENTIALS_KEY);
         binding.mapView.addView(mMapView);
         mMapView.onCreate(savedInstanceState);
