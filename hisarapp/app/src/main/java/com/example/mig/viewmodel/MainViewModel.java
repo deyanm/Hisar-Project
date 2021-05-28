@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.mig.model.Place;
 import com.example.mig.repository.Repository;
+import com.example.mig.utils.DataWrapper;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -26,7 +27,7 @@ public class MainViewModel extends ViewModel {
 
     private Repository repository;
     private MutableLiveData<ArrayList<Place>> placesList = new MutableLiveData<>();
-    private MutableLiveData<Integer> version = new MutableLiveData<>();
+    private MutableLiveData<DataWrapper> version = new MutableLiveData<>();
     private MutableLiveData<ResponseBody> fileResponse = new MutableLiveData<>();
 
     @ViewModelInject
@@ -42,7 +43,7 @@ public class MainViewModel extends ViewModel {
         return placesList;
     }
 
-    public MutableLiveData<Integer> getVersion() {
+    public MutableLiveData<DataWrapper> getVersion() {
         return version;
     }
 
@@ -63,8 +64,12 @@ public class MainViewModel extends ViewModel {
                     JsonObject jsonObject = new JsonParser().parse(responseBody.string()).getAsJsonObject();
                     return Observable.just(jsonObject.get("version").getAsInt());
                 })
-                .subscribe(result -> version.setValue(result),
-                        error -> Log.e(TAG, "error getting db file version: " + error.getMessage()));
+                .subscribe(
+                        result -> version.setValue(new DataWrapper(result, null)),
+                        error -> {
+                            version.setValue(new DataWrapper(null, error.getMessage()));
+                            Log.e(TAG, "error getting db file version: " + error.getMessage());
+                        });
     }
 
     public void downloadFile() {

@@ -103,44 +103,51 @@ public class MainActivity extends AppCompatActivity {
         createLocationRequest();
         buildLocationSettingsRequest();
         viewModel.getVersion().observe(this, version -> {
-            if (!(new File(getFilesDir() + "/db.json").exists())) {
-                viewModel.getFileResponse().observe(this, fileResponse -> {
+            if (version.getData() != null) {
+                if (!(new File(getFilesDir() + "/db.json").exists())) {
+                    viewModel.getFileResponse().observe(this, fileResponse -> {
+                        if (mProgressDialog.isShowing()) {
+                            mProgressDialog.cancel();
+                        }
+                        try {
+                            File file = new File(getFilesDir() + "/db.json");
+
+                            BufferedSink bufferedSink = Okio.buffer(Okio.sink(file));
+                            bufferedSink.writeAll(fileResponse.source());
+                            bufferedSink.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                    viewModel.downloadFile();
+                } else if (viewModel.getCurrentFileVersion() == -1 || (Integer) version.getData() > viewModel.getCurrentFileVersion()) {
+                    viewModel.setCurrentFileVersion((Integer) version.getData());
+                    viewModel.getFileResponse().observe(this, fileResponse -> {
+                        if (mProgressDialog.isShowing()) {
+                            mProgressDialog.cancel();
+                        }
+                        try {
+                            File file = new File(getFilesDir() + "/db.json");
+
+                            BufferedSink bufferedSink = Okio.buffer(Okio.sink(file));
+                            bufferedSink.writeAll(fileResponse.source());
+                            bufferedSink.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                    viewModel.downloadFile();
+                } else {
                     if (mProgressDialog.isShowing()) {
                         mProgressDialog.cancel();
                     }
-                    try {
-                        File file = new File(getFilesDir() + "/db.json");
-
-                        BufferedSink bufferedSink = Okio.buffer(Okio.sink(file));
-                        bufferedSink.writeAll(fileResponse.source());
-                        bufferedSink.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
-                viewModel.downloadFile();
-            } else if (viewModel.getCurrentFileVersion() == -1 || version > viewModel.getCurrentFileVersion()) {
-                viewModel.setCurrentFileVersion(version);
-                viewModel.getFileResponse().observe(this, fileResponse -> {
-                    if (mProgressDialog.isShowing()) {
-                        mProgressDialog.cancel();
-                    }
-                    try {
-                        File file = new File(getFilesDir() + "/db.json");
-
-                        BufferedSink bufferedSink = Okio.buffer(Okio.sink(file));
-                        bufferedSink.writeAll(fileResponse.source());
-                        bufferedSink.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
-                viewModel.downloadFile();
-            } else {
+                }
+            } else if (version.getError() != null) {
                 if (mProgressDialog.isShowing()) {
                     mProgressDialog.cancel();
                 }
             }
+
         });
         viewModel.getVersions();
     }

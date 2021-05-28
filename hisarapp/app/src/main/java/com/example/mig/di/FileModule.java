@@ -8,11 +8,10 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.lang.reflect.Type;
-
-import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -24,16 +23,17 @@ import dagger.hilt.android.components.ApplicationComponent;
 public class FileModule {
 
     @Provides
-    @Singleton
     public static HisarResponse provideHisarResponse(Application application) {
-        String yourFilePath = application.getFilesDir() + "/" + Constants.jsonFileName;
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(yourFilePath));
-            Type type = new TypeToken<HisarResponse>() {
-            }.getType();
-            return new Gson().fromJson(br, type);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        File file = new File(application.getFilesDir(), Constants.jsonFileName);
+        if (file.exists()) {
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(file));
+                Type type = new TypeToken<HisarResponse>() {
+                }.getType();
+                return new Gson().fromJson(br, type);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
         return new HisarResponse();
     }

@@ -22,7 +22,6 @@ public class Repository {
     private static final String TAG = Repository.class.getSimpleName();
 
     ApiService apiService;
-    //    HisarDao hisarDao;
     HisarResponse hisarResponse;
     SharedPreferences sharedPreferences;
 
