@@ -3,16 +3,19 @@ package com.example.mig.viewmodel;
 import android.location.Location;
 import android.util.Log;
 
-import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.mig.model.Place;
 import com.example.mig.repository.Repository;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
+@HiltViewModel
 public class MapViewModel extends ViewModel {
     private static final String TAG = MapViewModel.class.getSimpleName();
 
@@ -20,7 +23,7 @@ public class MapViewModel extends ViewModel {
     private MutableLiveData<Place> place = new MutableLiveData<>();
     private MutableLiveData<Location> location = new MutableLiveData<>();
 
-    @ViewModelInject
+    @Inject
     public MapViewModel(Repository repository) {
         this.repository = repository;
     }

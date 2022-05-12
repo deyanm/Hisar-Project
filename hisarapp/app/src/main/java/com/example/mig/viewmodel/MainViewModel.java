@@ -2,7 +2,6 @@ package com.example.mig.viewmodel;
 
 import android.util.Log;
 
-import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -14,6 +13,9 @@ import com.google.gson.JsonParser;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observable;
@@ -22,6 +24,7 @@ import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 
+@HiltViewModel
 public class MainViewModel extends ViewModel {
     private static final String TAG = MainViewModel.class.getSimpleName();
 
@@ -30,7 +33,7 @@ public class MainViewModel extends ViewModel {
     private MutableLiveData<DataWrapper> version = new MutableLiveData<>();
     private MutableLiveData<ResponseBody> fileResponse = new MutableLiveData<>();
 
-    @ViewModelInject
+    @Inject
     public MainViewModel(Repository repository) {
         this.repository = repository;
     }

@@ -14,11 +14,11 @@ import org.jetbrains.annotations.NotNull;
 
 import dagger.Module;
 import dagger.hilt.InstallIn;
-import dagger.hilt.android.components.ApplicationComponent;
+import dagger.hilt.components.SingletonComponent;
 
 @Module
 @GlideModule
-@InstallIn(ApplicationComponent.class)
+@InstallIn(SingletonComponent.class)
 public class MyGlideModule extends AppGlideModule {
 
     @Override
