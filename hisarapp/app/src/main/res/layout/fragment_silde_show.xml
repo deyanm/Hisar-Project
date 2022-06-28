@@ -1,0 +1,44 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:titleTextColor="@color/white" />
+
+    <!--Viewpager to show slideshow of images-->
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPagerGallery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/recyclerViewGalleryStrip"
+        android:background="@color/black" />
+    <!--Image name textview-->
+    <TextView
+        android:id="@+id/textViewImageName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/recyclerViewGalleryStrip"
+        android:background="#aa000000"
+        android:ellipsize="end"
+        android:gravity="center_horizontal"
+        android:padding="16dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/white" />
+
+    <!--Gallery strip Recyclerview-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewGalleryStrip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MIG</string>
     <string name="title_activity_main">Acasă</string>
     <string name="title_activity_map">Hartă</string>
     <string name="title_activity_about">Despre MIG</string>
@@ -56,4 +55,33 @@
     <string name="app_data">Se încarcă datele aplicației ...</string>
     <string name="there_are_no_images_to_show">Nu există imagini de afișat</string>
     <string name="spinner">Spinner</string>
+    <string name="place_name">Nume</string>
+    <string name="city">Oraș</string>
+    <string name="nearby_places">Locuri din apropiere</string>
+    <string name="explore_nearby">Explorați în apropiere</string>
+    <string name="news">Știri</string>
+    <string name="about">Despre</string>
+    <string name="facilities">Facilităţi</string>
+    <string name="free_wifi">WiFi gratuit</string>
+    <string name="airport_transfer">Transfer aeroport</string>
+    <string name="bar_lounge">Bar</string>
+    <string name="gym_fitness">Sală de sport / Fitness</string>
+    <string name="beach">Plajă</string>
+    <string name="casino">Cazinou</string>
+    <string name="wheelchair">Scaun cu rotile</string>
+    <string name="restaurant">Restaurant</string>
+    <string name="pet_friendly">Prietenos cu companie</string>
+    <string name="meeting_room">Sala de sedinte</string>
+    <string name="laundry">Spălătorie</string>
+    <string name="breakfast">Mic dejun</string>
+    <string name="elevator">Lift</string>
+    <string name="reviews">recenzii</string>
+    <string name="phone">Telefon</string>
+    <string name="website">Site-ul web</string>
+    <string name="book">Registru</string>
+    <string name="choose_dates">Alegeți datele</string>
+    <string name="choose_rooms">Camerele</string>
+    <string name="choose_filters">Filtre</string>
+    <string name="my_location">Locatia mea</string>
+    <string name="filters">Fel</string>
 </resources>

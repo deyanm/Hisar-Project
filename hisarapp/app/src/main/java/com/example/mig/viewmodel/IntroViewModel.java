@@ -12,7 +12,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 public class IntroViewModel extends ViewModel {
     private static final String TAG = IntroViewModel.class.getSimpleName();
 
-    private Repository repository;
+    private final Repository repository;
 
     @Inject
     public IntroViewModel(Repository repository) {

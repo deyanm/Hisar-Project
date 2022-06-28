@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:text="@string/about"
+                android:textColor="@color/colorPrimary"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <TextView
+                style="@style/TitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/description"
+                android:textSize="20sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/fullDescTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/roboto"
+                android:justificationMode="inter_word"
+                android:letterSpacing="0"
+                android:text="@string/description"
+                android:paddingBottom="10dp"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:lineHeight="20dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/facilitiesLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:text="@string/facilities"
+                android:textColor="@color/colorPrimary"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/facWifi"
+                    style="@style/FacitlitiesButton"
+                    android:text="@string/free_wifi"
+                    app:drawableTopCompat="@drawable/ic_free_wifi" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/facAirport"
+                    style="@style/FacitlitiesButton"
+                    android:text="@string/airport_transfer"
+                    app:drawableTopCompat="@drawable/ic_airport" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/facBar"
+                    style="@style/FacitlitiesButton"
+                    android:text="@string/bar_lounge"
+                    app:drawableTopCompat="@drawable/ic_bar" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/facGym"
+                    style="@style/FacitlitiesButton"
+                    android:text="@string/gym_fitness"
+                    app:drawableTopCompat="@drawable/ic_gym" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/facBeach"
+                    style="@style/FacitlitiesButton"
+                    android:text="@string/beach"
+                    app:drawableTopCompat="@drawable/ic_beach" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/facCasino"
+                    style="@style/FacitlitiesButton"
+                    android:text="@string/casino"
+                    app:drawableTopCompat="@drawable/ic_casino" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/facElevator"
+                    style="@style/FacitlitiesButton"
+                    android:text="@string/elevator"
+                    app:drawableTopCompat="@drawable/ic_elevator" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/facBreak"
+                    style="@style/FacitlitiesButton"
+                    android:text="@string/breakfast"
+                    app:drawableTopCompat="@drawable/ic_breakfast" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/facLaundry"
+                    style="@style/FacitlitiesButton"
+                    android:text="@string/laundry"
+                    app:drawableTopCompat="@drawable/ic_laundry" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/facMeeting"
+                    style="@style/FacitlitiesButton"
+                    android:text="@string/meeting_room"
+                    app:drawableTopCompat="@drawable/ic_meeting" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/facPet"
+                    style="@style/FacitlitiesButton"
+                    android:text="@string/pet_friendly"
+                    app:drawableTopCompat="@drawable/ic_pets" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/facRest"
+                    style="@style/FacitlitiesButton"
+                    android:text="@string/restaurant"
+                    app:drawableTopCompat="@drawable/ic_rest" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/facWheelchair"
+                    style="@style/FacitlitiesButton"
+                    android:text="@string/wheelchair"
+                    app:drawableTopCompat="@drawable/ic_wheelchair" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

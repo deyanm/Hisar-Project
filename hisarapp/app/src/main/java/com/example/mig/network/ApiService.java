@@ -1,6 +1,7 @@
 package com.example.mig.network;
 
 import com.example.mig.model.HisarResponse;
+import com.example.mig.model.LocationResponse;
 
 import java.util.HashMap;
 
@@ -12,6 +13,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 import retrofit2.http.Streaming;
+import retrofit2.http.Url;
 
 public interface ApiService {
 
@@ -27,4 +29,7 @@ public interface ApiService {
 
     @GET("place")
     Observable<HisarResponse> getPlace(@Query("id") String id);
+
+    @GET
+    Observable<LocationResponse> getCurrentWeather(@Url String url);
 }

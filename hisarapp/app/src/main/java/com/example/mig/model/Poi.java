@@ -29,6 +29,9 @@ public class Poi implements Serializable {
     @SerializedName("address")
     @Expose
     private String address;
+    @SerializedName("url")
+    @Expose
+    private String url;
     @SerializedName("location")
     @Expose
     private Location location;
@@ -225,5 +228,9 @@ public class Poi implements Serializable {
 
     public void setDistanceKm(float distanceKm) {
         this.distanceKm = distanceKm;
+    }
+
+    public String getUrl() {
+        return url;
     }
 }

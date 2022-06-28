@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,91 +7,133 @@
     android:fitsSystemWindows="true"
     tools:context=".ui.PlacesActivity">
 
-    <include
-        android:id="@+id/toolbarInner"
-        layout="@layout/toolbar" />
-
-    <RelativeLayout
-        android:id="@+id/search_layout"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbarInner"
-        android:background="@color/colorPrimary"
-        android:padding="5dp">
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/search_view"
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:queryHint="Type something..." />
-    </RelativeLayout>
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleGravity="bottom"
+            app:expandedTitleMarginEnd="16dp"
+            app:expandedTitleMarginStart="16dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:titleEnabled="false">
 
-    <!--    <com.google.android.material.chip.ChipGroup-->
-    <!--        android:id="@+id/chip_group"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_below="@id/search_layout"-->
-    <!--        android:paddingStart="10dp"-->
-    <!--        android:paddingEnd="10dp"-->
-    <!--        app:singleSelection="true">-->
+            <ImageView
+                android:id="@+id/toolbar_image"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@null"
+                android:fitsSystemWindows="true"
+                android:scaleType="centerCrop" />
 
-    <!--        <com.google.android.material.chip.Chip-->
-    <!--            android:id="@+id/placesChip"-->
-    <!--            style="@style/CustomChipChoice"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:checked="true"-->
-    <!--            android:text="@string/title_activity_places" />-->
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
-    <!--        <com.google.android.material.chip.Chip-->
-    <!--            android:id="@+id/hotelsChip"-->
-    <!--            style="@style/CustomChipChoice"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:text="@string/title_activity_hotels" />-->
-
-    <!--        <com.google.android.material.chip.Chip-->
-    <!--            android:id="@+id/restChip"-->
-    <!--            style="@style/CustomChipChoice"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:text="@string/title_activity_restaurants" />-->
-
-    <!--    </com.google.android.material.chip.ChipGroup>-->
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/placesRecycler"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/search_layout"
-        tools:listitem="@layout/item_place" />
+        android:layout_height="wrap_content"
+        app:behavior_overlapTop="64dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appbar">
 
-    <RelativeLayout
-        android:id="@+id/nothingShow"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/search_layout"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/noTv"
-            style="@style/TitleTextView"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:gravity="center"
-            android:text="@string/there_are_no_places_to_show"
-            android:textSize="20sp" />
+            android:orientation="vertical">
 
-        <TextView
-            style="@style/DefaultTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/noTv"
-            android:layout_centerVertical="true"
-            android:gravity="center"
-            android:text="@string/comeback_later"
-            android:textStyle="normal" />
-    </RelativeLayout>
+            <include
+                android:id="@+id/reservationCardLayout"
+                layout="@layout/reservation_card" />
 
-</RelativeLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/placesRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                tools:listitem="@layout/item_place" />
+
+            <!--    <com.google.android.material.chip.ChipGroup-->
+            <!--        android:id="@+id/chip_group"-->
+            <!--        android:layout_width="match_parent"-->
+            <!--        android:layout_height="wrap_content"-->
+            <!--        android:layout_below="@id/search_layout"-->
+            <!--        android:paddingStart="10dp"-->
+            <!--        android:paddingEnd="10dp"-->
+            <!--        app:singleSelection="true">-->
+
+            <!--        <com.google.android.material.chip.Chip-->
+            <!--            android:id="@+id/placesChip"-->
+            <!--            style="@style/CustomChipChoice"-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:checked="true"-->
+            <!--            android:text="@string/title_activity_places" />-->
+
+            <!--        <com.google.android.material.chip.Chip-->
+            <!--            android:id="@+id/hotelsChip"-->
+            <!--            style="@style/CustomChipChoice"-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:text="@string/title_activity_hotels" />-->
+
+            <!--        <com.google.android.material.chip.Chip-->
+            <!--            android:id="@+id/restChip"-->
+            <!--            style="@style/CustomChipChoice"-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:text="@string/title_activity_restaurants" />-->
+
+            <!--    </com.google.android.material.chip.ChipGroup>-->
+
+            <RelativeLayout
+                android:id="@+id/nothingShow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/noTv"
+                    style="@style/TitleTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:text="@string/there_are_no_places_to_show"
+                    android:textSize="20sp" />
+
+                <TextView
+                    style="@style/DefaultTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/noTv"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:text="@string/comeback_later"
+                    android:textStyle="normal" />
+            </RelativeLayout>
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

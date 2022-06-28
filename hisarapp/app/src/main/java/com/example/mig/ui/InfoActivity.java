@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.os.ConfigurationCompat;
+import androidx.core.text.HtmlCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.mig.R;
@@ -59,7 +60,7 @@ public class InfoActivity extends AppCompatActivity {
             if (place != null) {
                 binding.placeNameTv.setText(place.getInfo().getName());
                 binding.locTv.setText(place.getInfo().getAddress());
-                binding.fullDescTv.setText(Html.fromHtml(place.getInfo().getFullDescription(), new ImageGetter(), null));
+                binding.fullDescTv.setText(HtmlCompat.fromHtml(place.getInfo().getFullDescription(), HtmlCompat.FROM_HTML_MODE_LEGACY, new ImageGetter(), null));
 
                 if (place.getInfo().getImages() != null && place.getInfo().getImages().size() > 0) {
                     addItems(place.getInfo().getImages());

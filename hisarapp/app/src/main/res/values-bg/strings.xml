@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">МИГ</string>
+
     <string name="title_activity_settings">Настройки</string>
     <string name="title_activity_map">Карта</string>
     <string name="settings_general">Основни</string>
@@ -12,7 +12,6 @@
     <string name="terms">Условия за ползване</string>
     <string name="favourites">Любими</string>
     <string name="exit">Изход</string>
-    <string name="title_activity_main">Начало</string>
     <string name="title_activity_info">Инфо</string>
     <string name="title_activity_more">Още</string>
     <string name="title_activity_restaurants">Ресторанти</string>
@@ -56,4 +55,34 @@
     <string name="app_data">Зареждане на данните…</string>
     <string name="there_are_no_images_to_show">Няма снимки за показване</string>
     <string name="spinner">Spinner</string>
+    <string name="place_name">Име</string>
+    <string name="city">Град</string>
+    <string name="nearby_places">Близки обекти</string>
+    <string name="explore_nearby">Покажи обектите</string>
+    <string name="news">Новини</string>
+    <string name="about">За</string>
+    <string name="facilities">Удобства</string>
+    <string name="free_wifi">Безплатен Wifi</string>
+    <string name="airport_transfer">Летищен трансфер</string>
+    <string name="bar_lounge">Бар</string>
+    <string name="gym_fitness">Спортни съоръжения</string>
+    <string name="beach">Плаж</string>
+    <string name="casino">Казино</string>
+    <string name="wheelchair">Инвалиден стол</string>
+    <string name="restaurant">Ресторант</string>
+    <string name="pet_friendly">Домашни любимци</string>
+    <string name="meeting_room">Конферентна зала</string>
+    <string name="laundry">Пералня</string>
+    <string name="breakfast">Закуска</string>
+    <string name="elevator">Асаньор</string>
+    <string name="reviews">ревюта</string>
+    <string name="phone">Телефон</string>
+    <string name="website">Уебсайт</string>
+    <string name="book">Запази</string>
+    <string name="choose_dates">Изберете дати</string>
+    <string name="choose_rooms">Стаи</string>
+    <string name="choose_filters">Филтри</string>
+    <string name="title_activity_main">Начало</string>
+    <string name="my_location">Моята локация</string>
+    <string name="filters">Сортиране</string>
 </resources>

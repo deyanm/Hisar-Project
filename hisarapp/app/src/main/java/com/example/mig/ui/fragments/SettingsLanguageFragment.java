@@ -102,6 +102,9 @@ public class SettingsLanguageFragment extends Fragment {
             Configuration config = resources.getConfiguration();
             config.setLocale(locale);
             resources.updateConfiguration(config, resources.getDisplayMetrics());
+            getActivity().getBaseContext().getResources().updateConfiguration(config, getActivity().getBaseContext().getResources().getDisplayMetrics());
+            getActivity().invalidateOptionsMenu();
+            getActivity().onConfigurationChanged(config);
             updateUI(toolbar);
         });
 

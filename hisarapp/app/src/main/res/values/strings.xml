@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MIG</string>
+    <string name="app_name" translatable="false">MIG</string>
     <string name="title_activity_main">Home</string>
     <string name="title_activity_map">Map</string>
     <string name="title_activity_about">About MIG</string>
@@ -55,6 +55,36 @@
     <string name="app_data">Loading application data…</string>
     <string name="there_are_no_images_to_show">There are no images to show</string>
     <string name="spinner">Spinner</string>
+    <string name="place_name">Place name</string>
+    <string name="city">City</string>
+    <string name="nearby_places">Nearby places</string>
+    <string name="explore_nearby">Explore nearby</string>
+    <string name="dashes" translatable="false">- - -</string>
+    <string name="news">News</string>
+    <string name="about">About</string>
+    <string name="facilities">Facilities</string>
+    <string name="free_wifi">Free Wifi</string>
+    <string name="airport_transfer">Airport Transfer</string>
+    <string name="bar_lounge">Bar</string>
+    <string name="gym_fitness">Gym / Fitness</string>
+    <string name="beach">Beach</string>
+    <string name="casino">Casino</string>
+    <string name="wheelchair">Wheelchair</string>
+    <string name="restaurant">Restaurant</string>
+    <string name="pet_friendly">Pet Friendly</string>
+    <string name="meeting_room">Meeting Room</string>
+    <string name="laundry">Laundry</string>
+    <string name="breakfast">Breakfast</string>
+    <string name="elevator">Elevator</string>
+    <string name="reviews">reviews</string>
+    <string name="phone">Phone</string>
+    <string name="website">Website</string>
+    <string name="book">Book</string>
+    <string name="choose_dates">Choose dates</string>
+    <string name="choose_rooms">Rooms</string>
+    <string name="choose_filters">Filters</string>
+    <string name="my_location">My Location</string>
+    <string name="filters">Sort</string>
     <array name="spinner">
         <item>@string/all</item>
         <item>@string/title_activity_places</item>

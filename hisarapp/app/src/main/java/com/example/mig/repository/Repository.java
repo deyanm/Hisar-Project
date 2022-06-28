@@ -2,7 +2,9 @@ package com.example.mig.repository;
 
 import android.content.SharedPreferences;
 
+import com.example.mig.BuildConfig;
 import com.example.mig.model.HisarResponse;
+import com.example.mig.model.LocationResponse;
 import com.example.mig.model.Place;
 import com.example.mig.model.Poi;
 import com.example.mig.network.ApiService;
@@ -30,6 +32,10 @@ public class Repository {
         this.apiService = apiService;
         this.hisarResponse = hisarResponse;
         this.sharedPreferences = sharedPreferences;
+    }
+
+    public Observable<LocationResponse> getCurrentWeather(String city) {
+        return apiService.getCurrentWeather("https://api.weatherapi.com/v1/current.json?key=" + BuildConfig.WEATHER_KEY + "&q=" + city);
     }
 
     public Observable<ResponseBody> getVersions() {

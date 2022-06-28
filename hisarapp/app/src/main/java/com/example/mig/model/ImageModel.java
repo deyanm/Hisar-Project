@@ -5,6 +5,7 @@ public class ImageModel {
     public String name;
     public int id;
     public String imageUrl;
+    public boolean isSelected = false;
 
     public ImageModel(int id, String name, String imageUrl) {
         this.name = name;

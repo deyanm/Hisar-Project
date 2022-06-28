@@ -1,8 +1,9 @@
 package com.example.mig.ui;
 
+import static com.example.mig.utils.Utils.showSnackbar;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -12,6 +13,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.Settings;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,7 +25,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProvider;
@@ -51,8 +53,6 @@ import com.google.android.gms.location.SettingsClient;
 import java.util.ArrayList;
 
 import dagger.hilt.android.AndroidEntryPoint;
-
-import static com.example.mig.utils.Utils.showSnackbar;
 
 @AndroidEntryPoint
 public class PlacesActivity extends AppCompatActivity {
@@ -97,27 +97,6 @@ public class PlacesActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        binding.searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        binding.searchView.setMaxWidth(Integer.MAX_VALUE);
-
-        // listening to search query text change
-        binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                // filter recycler view when query submitted
-                placesAdapter.getFilter().filter(query);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String query) {
-                // filter recycler view when text is changed
-                placesAdapter.getFilter().filter(query);
-                return false;
-            }
-        });
-
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         mSettingsClient = LocationServices.getSettingsClient(this);
 
@@ -142,7 +121,26 @@ public class PlacesActivity extends AppCompatActivity {
                 binding.placesRecycler.setVisibility(View.VISIBLE);
             }
         });
+        binding.reservationCardLayout.placeNameTvRes.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                placesAdapter.getFilter().filter(s.toString().trim());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        binding.reservationCardLayout.reservationSearchBtn.setOnClickListener(v -> {
+            placesAdapter.getFilter().filter(binding.reservationCardLayout.placeNameTvRes.getText().toString().trim());
+        });
+        binding.reservationCardLayout.reservationMapBtn.setOnClickListener(v -> startActivity(new Intent(this, MapActivity.class)));
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -262,9 +260,8 @@ public class PlacesActivity extends AppCompatActivity {
     }
 
     private boolean checkPermissions() {
-        int permissionState = ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION);
-        return permissionState == PackageManager.PERMISSION_GRANTED;
+        return ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
     }
 
     private void requestPermissions() {
@@ -330,16 +327,6 @@ public class PlacesActivity extends AppCompatActivity {
                         });
             }
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        // close search view on back button pressed
-        if (!binding.searchView.isIconified()) {
-            binding.searchView.setIconified(true);
-            return;
-        }
-        super.onBackPressed();
     }
 
     @Override

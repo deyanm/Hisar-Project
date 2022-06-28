@@ -1,28 +1,27 @@
 package com.example.mig.ui;
 
-import android.app.SearchManager;
-import android.content.Context;
+import static androidx.fragment.app.DialogFragment.STYLE_NORMAL;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.os.ConfigurationCompat;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mig.R;
 import com.example.mig.adapters.GalleryAdapter;
 import com.example.mig.databinding.ActivityGalleryBinding;
 import com.example.mig.model.ImageModel;
 import com.example.mig.model.Poi;
-import com.example.mig.ui.dialog.GalleryDialogFragment;
+import com.example.mig.ui.fragments.SlideShowFragment;
 import com.example.mig.utils.Utils;
 import com.example.mig.viewmodel.GalleryViewModel;
 
@@ -32,7 +31,7 @@ import java.util.List;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class GalleryActivity extends AppCompatActivity {
+public class GalleryActivity extends AppCompatActivity implements GalleryAdapter.GalleryAdapterCallBacks {
 
     private static final String TAG = GalleryActivity.class.getSimpleName();
 
@@ -40,10 +39,11 @@ public class GalleryActivity extends AppCompatActivity {
     private GalleryViewModel viewModel;
 
     private List<Poi> pois;
-    private List<ImageModel> modelsList;
+    public List<ImageModel> imageModels;
+//    private List<ImageModel> modelsList;
 
-    private GalleryAdapter listViewAdapter;
-    private SearchView searchView;
+    private GalleryAdapter mGalleryAdapter;
+//    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,72 +71,69 @@ public class GalleryActivity extends AppCompatActivity {
             pois.addAll(place.getPois().getHotels());
             pois.addAll(place.getPois().getRestaurants());
 
-            modelsList.clear();
+            imageModels.clear();
             for (Poi poi : pois) {
                 for (String image : poi.getImages()) {
                     ImageModel imageModel = new ImageModel(poi.getId(), poi.getName(), image);
-                    modelsList.add(imageModel);
+                    imageModels.add(imageModel);
                 }
             }
-            listViewAdapter.renewItems(modelsList);
-            this.listViewAdapter.notifyDataSetChanged();
-            if (modelsList.isEmpty()) {
-                binding.nothingShow.setVisibility(View.VISIBLE);
-                binding.recyclerViewGallery.setVisibility(View.GONE);
-            } else {
-                binding.nothingShow.setVisibility(View.GONE);
-                binding.recyclerViewGallery.setVisibility(View.VISIBLE);
-            }
+            mGalleryAdapter.renewItems(imageModels);
+            mGalleryAdapter.notifyDataSetChanged();
         });
         String langCode = ConfigurationCompat.getLocales(getResources().getConfiguration()).get(0).getLanguage();
         viewModel.getCurrentPlace(langCode);
     }
 
     private void initialiseAdapters() {
-        modelsList = new ArrayList<>();
-        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-//        staggeredGridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
-//        staggeredGridLayoutManager.invalidateSpanAssignments();
-        binding.recyclerViewGallery.setLayoutManager(staggeredGridLayoutManager);
-        listViewAdapter = new GalleryAdapter(this, model -> {
-            GalleryDialogFragment.newInstance(model.getImageUrl(), model.getName()).show(getSupportFragmentManager().beginTransaction(), "MyDialogFragment");
-        }, modelsList);
-        binding.recyclerViewGallery.setOnTouchListener((v, event) -> {
+//        modelsList = new ArrayList<>();
+//        listViewAdapter = new GalleryAdapter(this, model -> {
+//            GalleryDialogFragment.newInstance(model.getImageUrl(), model.getName()).show(getSupportFragmentManager().beginTransaction(), "MyDialogFragment");
+//        }, modelsList);
+//        binding.recyclerViewGallery.setOnClickListener(v -> {
+//            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+//        });
+//        binding.recyclerViewGallery.setAdapter(listViewAdapter);
 
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-
-            return false;
-        });
-        binding.recyclerViewGallery.setAdapter(listViewAdapter);
+        imageModels = new ArrayList<>();
+        RecyclerView recyclerViewGallery = findViewById(R.id.recyclerViewGallery);
+        recyclerViewGallery.setLayoutManager(new GridLayoutManager(this, 2));
+        //Create RecyclerView Adapter
+        mGalleryAdapter = new GalleryAdapter(this);
+        //set adapter to RecyclerView
+        recyclerViewGallery.setAdapter(mGalleryAdapter);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.search_menu, menu);
+//        getMenuInflater().inflate(R.menu.about_menu, menu);
 
         // Associate searchable configuration with the SearchView
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setMaxWidth(Integer.MAX_VALUE);
+//        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+//        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+//        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+//        searchView.setMaxWidth(Integer.MAX_VALUE);
+//
+//        // listening to search query text change
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                // filter recycler view when query submitted
+//                listViewAdapter.getFilter().filter(query);
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String query) {
+//                // filter recycler view when text is changed
+//                listViewAdapter.getFilter().filter(query);
+//                return false;
+//            }
+//        });
 
-        // listening to search query text change
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                // filter recycler view when query submitted
-                listViewAdapter.getFilter().filter(query);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String query) {
-                // filter recycler view when text is changed
-                listViewAdapter.getFilter().filter(query);
-                return false;
-            }
-        });
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu, menu);
         return true;
     }
 
@@ -146,8 +143,6 @@ public class GalleryActivity extends AppCompatActivity {
             startActivity(new Intent(this, SettingsActivity.class));
         } else if (item.getItemId() == android.R.id.home) {
             finish();
-        } else if (item.getItemId() == R.id.action_search) {
-            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -155,10 +150,21 @@ public class GalleryActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // close search view on back button pressed
-        if (!searchView.isIconified()) {
-            searchView.setIconified(true);
-            return;
-        }
+//        if (!searchView.isIconified()) {
+//            searchView.setIconified(true);
+//            return;
+//        }
         super.onBackPressed();
     }
+
+    @Override
+    public void onItemSelected(int position) {
+        //create fullscreen SlideShowFragment dialog
+        SlideShowFragment slideShowFragment = SlideShowFragment.newInstance(position);
+        //setUp style for slide show fragment
+        slideShowFragment.setStyle(STYLE_NORMAL, R.style.DialogFragmentTheme);
+        //finally show dialogue
+        slideShowFragment.show(getSupportFragmentManager(), null);
+    }
+
 }

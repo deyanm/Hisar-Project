@@ -2,34 +2,32 @@ package com.example.mig.ui;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.mig.BuildConfig;
 import com.example.mig.R;
 import com.example.mig.adapters.ImageSliderAdapter;
 import com.example.mig.databinding.ActivityAboutPoiBinding;
 import com.example.mig.model.Poi;
 import com.example.mig.model.SliderItem;
+import com.example.mig.ui.fragments.PlaceAboutFragment;
+import com.example.mig.ui.fragments.PlaceBookingFragment;
+import com.example.mig.ui.fragments.PlaceReviewsFragment;
 import com.example.mig.utils.Utils;
 import com.example.mig.viewmodel.AboutPoiViewModel;
-import com.microsoft.maps.Geopoint;
-import com.microsoft.maps.MapAnimationKind;
-import com.microsoft.maps.MapElementLayer;
-import com.microsoft.maps.MapIcon;
-import com.microsoft.maps.MapRenderMode;
-import com.microsoft.maps.MapScene;
-import com.microsoft.maps.MapView;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
@@ -42,13 +40,14 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class AboutPoiActivity extends AppCompatActivity {
 
+    private static final int NUM_TABS = 3;
+
     ActivityAboutPoiBinding binding;
     AboutPoiViewModel viewModel;
     private Poi poi;
     private SliderView sliderView;
     private ImageSliderAdapter adapter;
-    private MapView mMapView;
-    private MapElementLayer mPinLayer;
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,31 +60,11 @@ public class AboutPoiActivity extends AppCompatActivity {
         poi = (Poi) getIntent().getSerializableExtra("POI");
 
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle(poi.getName());
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         bindViews();
-
-        if (poi.getLocation() != null) {
-            binding.locationLayout.setVisibility(View.VISIBLE);
-            mMapView = new MapView(this, MapRenderMode.RASTER);
-            mMapView.setCredentialsKey(BuildConfig.CREDENTIALS_KEY);
-            binding.mapView.addView(mMapView);
-            mMapView.onCreate(savedInstanceState);
-            mPinLayer = new MapElementLayer();
-            mMapView.getLayers().add(mPinLayer);
-            Geopoint location = new Geopoint(poi.getLocation().getLat(), poi.getLocation().getLon());
-            String title = poi.getName();
-
-            MapIcon pushpin = new MapIcon();
-            pushpin.setLocation(location);
-            pushpin.setTitle(title);
-
-            mPinLayer.getElements().add(pushpin);
-
-            mMapView.setScene(MapScene.createFromLocationAndZoomLevel(location, 15), MapAnimationKind.NONE);
-        }
 
         sliderView = findViewById(R.id.imageSlider);
 
@@ -108,32 +87,37 @@ public class AboutPoiActivity extends AppCompatActivity {
     }
 
     private void bindViews() {
-        binding.placeNameTv.setText(poi.getName());
-        binding.locTv.setText(poi.getAddress());
-        binding.descTv.setText(poi.getShortDescription());
-        binding.phoneTv.setText(poi.getPhone());
-        binding.websiteTv.setText(poi.getLinks());
-        binding.favFab.setImageResource(viewModel.getIsPlaceFav(poi.getId()) ? R.drawable.ic_baseline_favorite_24 : R.drawable.ic_baseline_favorite_border_24);
-        binding.favFab.setOnClickListener(view -> {
-            boolean currentState = viewModel.getIsPlaceFav(poi.getId());
-            binding.favFab.setImageResource(currentState ? R.drawable.ic_baseline_favorite_border_24 : R.drawable.ic_baseline_favorite_24);
-            viewModel.setIsPlaceFav(poi.getId(), !currentState);
+        String[] titles = {"Booking", "About", "Reviews"};
+        ViewPager2 viewPager = binding.viewPager;
+        TabLayout tabLayout = binding.tabLayout;
+
+        FragmentStateAdapter adapter = new FragmentStateAdapter(getSupportFragmentManager(), getLifecycle()) {
+            @NonNull
+            @Override
+            public Fragment createFragment(int position) {
+                switch (position) {
+                    case 0:
+                        return PlaceBookingFragment.newInstance(poi);
+                    case 1:
+                        return PlaceAboutFragment.newInstance(poi);
+                    case 2:
+                        return PlaceReviewsFragment.newInstance(poi);
+                }
+                return PlaceBookingFragment.newInstance(poi);
+            }
+
+            @Override
+            public int getItemCount() {
+                return NUM_TABS;
+            }
+        };
+        viewPager.setAdapter(adapter);
+
+        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager, true, (tab, position) -> {
+            tab.setText(titles[position]);
+            viewPager.setCurrentItem(tab.getPosition(), true);
         });
-        binding.fullDescTv.setText(poi.getDescription());
-        binding.directionsBtn.setOnClickListener(v -> {
-            Uri gmmIntentUri = Uri.parse("google.navigation:q=" + poi.getLocation().getLat() + "," + poi.getLocation().getLon());
-            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-            mapIntent.setPackage("com.google.android.apps.maps");
-            startActivity(mapIntent);
-        });
-        binding.shareBtn.setOnClickListener(v -> {
-            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-            sharingIntent.setType("text/plain");
-            String shareBody = poi.getShortDescription();
-            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, poi.getName());
-            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-            startActivity(Intent.createChooser(sharingIntent, "Share via"));
-        });
+        tabLayoutMediator.attach();
     }
 
     public void addItems(List<String> images) {
@@ -149,60 +133,28 @@ public class AboutPoiActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu, menu);
-
+        menuInflater.inflate(R.menu.about_menu, menu);
+        menu.findItem(R.id.action_fav).setIcon(poi.isFav() ? R.drawable.ic_baseline_favorite_24 : R.drawable.ic_baseline_favorite_border_24);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.settings) {
-            startActivity(new Intent(this, SettingsActivity.class));
+        if (item.getItemId() == R.id.action_share) {
+
+            Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+            sharingIntent.setType("text/plain");
+            String shareBody = poi.getShortDescription();
+            sharingIntent.putExtra(Intent.EXTRA_SUBJECT, poi.getName());
+            sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+            startActivity(Intent.createChooser(sharingIntent, "Share via"));
+            startActivity(Intent.createChooser(sharingIntent, "Share using"));
+        } else if (item.getItemId() == R.id.action_fav) {
+            poi.setFav(!poi.isFav());
+            item.setIcon(poi.isFav() ? R.drawable.ic_baseline_favorite_24 : R.drawable.ic_baseline_favorite_border_24);
         } else if (item.getItemId() == android.R.id.home) {
             finish();
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mMapView.onStart();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mMapView.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mMapView.onPause();
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        mMapView.onSaveInstanceState(outState);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        mMapView.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mMapView.onDestroy();
-    }
-
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        mMapView.onLowMemory();
     }
 }

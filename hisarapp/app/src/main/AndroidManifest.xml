@@ -22,15 +22,17 @@
         tools:replace="android:allowBackup">
         <activity
             android:name="com.example.mig.ui.IntroActivity"
-            android:theme="@style/SplashScreenTheme"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/SplashScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.mig.ui.MainActivity" />
+        <activity
+            android:name="com.example.mig.ui.MainActivity"
+            android:configChanges="locale" />
         <activity android:name="com.example.mig.ui.InfoActivity" />
         <activity android:name="com.example.mig.ui.SettingsActivity" />
         <activity android:name="com.example.mig.ui.MapActivity" />

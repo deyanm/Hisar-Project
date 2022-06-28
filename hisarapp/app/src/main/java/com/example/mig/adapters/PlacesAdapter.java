@@ -1,6 +1,7 @@
 package com.example.mig.adapters;
 
 import android.content.Context;
+import android.net.Uri;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -55,13 +56,32 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlacesRecy
         }
 
         if (poi.getImages() != null && poi.getImages().get(0) != null) {
-            int id = mContext.getResources().getIdentifier(poi.getImages().get(0), "drawable", mContext.getPackageName());
-            Glide.with(mContext).load(id).centerCrop().into(holder.binding.placeImage);
+            if (poi.getImages().get(0).startsWith("http")) {
+                String url = poi.getImages().get(0).startsWith("http:") ? poi.getImages().get(0).replace("http", "https") : poi.getImages().get(0);
+                Glide.with(mContext)
+                        .load(Uri.parse(url))
+                        .centerCrop()
+                        .into(holder.binding.placeImage);
+            } else {
+                Glide.with(mContext)
+                        .load(Uri.parse("https://raw.githubusercontent.com/deyanm/hisarserver/main/images/" + poi.getImages().get(0) + ".jpg"))
+                        .centerCrop()
+                        .into(holder.binding.placeImage);
+            }
+//            int id = mContext.getResources().getIdentifier(poi.getImages().get(0), "drawable", mContext.getPackageName());
+//            Glide.with(mContext).load(id).centerCrop().into(holder.binding.placeImage);
         }
         holder.binding.addToFav.setImageResource(poi.isFav() ? R.drawable.ic_baseline_favorite_24 : R.drawable.ic_baseline_favorite_border_24);
         holder.binding.addToFav.setOnClickListener(v -> {
             mPlaceClickListener.onFavClick(poi, position, !poi.isFav());
         });
+        if (poi.getRating() != null) {
+            holder.binding.rating.setRating(poi.getRating().floatValue());
+        }
+        if (poi.getPopularity() != null) {
+            holder.binding.reviewsTv.setText("(" + poi.getPopularity() + " reviews)");
+        }
+        holder.binding.placeTypeAwayTv.setText(String.format("%s км от теб", poi.getDistanceKm()));
         holder.itemView.setOnClickListener(v -> mPlaceClickListener.onPlaceClick(poi));
     }
 
@@ -101,8 +121,7 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlacesRecy
         }
 
         @Override
-        protected void publishResults(CharSequence constraint,
-                                      FilterResults results) {
+        protected void publishResults(CharSequence constraint, FilterResults results) {
             pois = (List<Poi>) results.values;
             notifyDataSetChanged();
         }
