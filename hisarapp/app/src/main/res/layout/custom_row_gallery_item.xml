@@ -13,6 +13,7 @@
     <TextView
         android:id="@+id/textViewImageName"
         android:layout_width="match_parent"
+        android:textColor="@color/white"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/imageViewThumbnail"
         android:background="#89000000"
