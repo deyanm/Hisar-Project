@@ -18,7 +18,6 @@ import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
@@ -406,80 +405,77 @@ public class MapActivity extends AppCompatActivity {
         AutoCompleteTextView editTextFilledExposedDropdown =
                 findViewById(R.id.filled_exposed_dropdown);
 
-        editTextFilledExposedDropdown.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    case 0:
-                        if (combinedPois != null) {
-                            mPinLayer.getElements().clear();
-                            for (Poi poi : combinedPois) {
-                                if (poi.getLocation() != null) {
-                                    Geopoint location = new Geopoint(poi.getLocation().getLat(), poi.getLocation().getLon());
-                                    String title = poi.getName();
-
-                                    MapIcon pushpin = new MapIcon();
-                                    pushpin.setLocation(location);
-                                    pushpin.setTitle(title);
-
-                                    mPinLayer.getElements().add(pushpin);
-                                }
-                            }
-                        }
-                        break;
-                    case 1:
+        editTextFilledExposedDropdown.setOnItemClickListener((parent, view, position, id) -> {
+            switch (position) {
+                case 0:
+                    if (combinedPois != null) {
                         mPinLayer.getElements().clear();
-                        if (currentPlace != null) {
-                            mPinLayer.getElements().clear();
-                            for (Poi poi : currentPlace.getPois().getSights()) {
-                                if (poi.getLocation() != null) {
-                                    Geopoint location = new Geopoint(poi.getLocation().getLat(), poi.getLocation().getLon());
-                                    String title = poi.getName();
+                        for (Poi poi : combinedPois) {
+                            if (poi.getLocation() != null) {
+                                Geopoint location = new Geopoint(poi.getLocation().getLat(), poi.getLocation().getLon());
+                                String title = poi.getName();
 
-                                    MapIcon pushpin = new MapIcon();
-                                    pushpin.setLocation(location);
-                                    pushpin.setTitle(title);
+                                MapIcon pushpin = new MapIcon();
+                                pushpin.setLocation(location);
+                                pushpin.setTitle(title);
 
-                                    mPinLayer.getElements().add(pushpin);
-                                }
+                                mPinLayer.getElements().add(pushpin);
                             }
                         }
-                        break;
-                    case 2:
+                    }
+                    break;
+                case 1:
+                    mPinLayer.getElements().clear();
+                    if (currentPlace != null) {
                         mPinLayer.getElements().clear();
-                        if (currentPlace != null) {
-                            for (Poi poi : currentPlace.getPois().getHotels()) {
-                                if (poi.getLocation() != null) {
-                                    Geopoint location = new Geopoint(poi.getLocation().getLat(), poi.getLocation().getLon());
-                                    String title = poi.getName();
+                        for (Poi poi : currentPlace.getPois().getSights()) {
+                            if (poi.getLocation() != null) {
+                                Geopoint location = new Geopoint(poi.getLocation().getLat(), poi.getLocation().getLon());
+                                String title = poi.getName();
 
-                                    MapIcon pushpin = new MapIcon();
-                                    pushpin.setLocation(location);
-                                    pushpin.setTitle(title);
+                                MapIcon pushpin = new MapIcon();
+                                pushpin.setLocation(location);
+                                pushpin.setTitle(title);
 
-                                    mPinLayer.getElements().add(pushpin);
-                                }
+                                mPinLayer.getElements().add(pushpin);
                             }
                         }
-                        break;
-                    case 3:
-                        mPinLayer.getElements().clear();
-                        if (currentPlace != null) {
-                            for (Poi poi : currentPlace.getPois().getRestaurants()) {
-                                if (poi.getLocation() != null) {
-                                    Geopoint location = new Geopoint(poi.getLocation().getLat(), poi.getLocation().getLon());
-                                    String title = poi.getName();
+                    }
+                    break;
+                case 2:
+                    mPinLayer.getElements().clear();
+                    if (currentPlace != null) {
+                        for (Poi poi : currentPlace.getPois().getHotels()) {
+                            if (poi.getLocation() != null) {
+                                Geopoint location = new Geopoint(poi.getLocation().getLat(), poi.getLocation().getLon());
+                                String title = poi.getName();
 
-                                    MapIcon pushpin = new MapIcon();
-                                    pushpin.setLocation(location);
-                                    pushpin.setTitle(title);
+                                MapIcon pushpin = new MapIcon();
+                                pushpin.setLocation(location);
+                                pushpin.setTitle(title);
 
-                                    mPinLayer.getElements().add(pushpin);
-                                }
+                                mPinLayer.getElements().add(pushpin);
                             }
                         }
-                        break;
-                }
+                    }
+                    break;
+                case 3:
+                    mPinLayer.getElements().clear();
+                    if (currentPlace != null) {
+                        for (Poi poi : currentPlace.getPois().getRestaurants()) {
+                            if (poi.getLocation() != null) {
+                                Geopoint location = new Geopoint(poi.getLocation().getLat(), poi.getLocation().getLon());
+                                String title = poi.getName();
+
+                                MapIcon pushpin = new MapIcon();
+                                pushpin.setLocation(location);
+                                pushpin.setTitle(title);
+
+                                mPinLayer.getElements().add(pushpin);
+                            }
+                        }
+                    }
+                    break;
             }
         });
 

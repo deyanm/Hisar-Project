@@ -91,4 +91,5 @@
         <item>@string/title_activity_hotels</item>
         <item>@string/title_activity_restaurants</item>
     </array>
+    <string name="loading_data">Loading application data...</string>
 </resources>

@@ -1,9 +1,11 @@
 package com.example.mig.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.text.Html;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
@@ -15,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.example.mig.R;
 import com.example.mig.databinding.ItemPlaceBinding;
 import com.example.mig.model.Poi;
+import com.example.mig.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,6 +83,16 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlacesRecy
         }
         if (poi.getPopularity() != null) {
             holder.binding.reviewsTv.setText("(" + poi.getPopularity() + " reviews)");
+        }
+        holder.binding.book.setOnClickListener(v -> {
+            if (poi.getUrl() != null) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(poi.getUrl()));
+                mContext.startActivity(browserIntent);
+            }
+        });
+        if (poi.getType().equals(Constants.SIGHTS_KEY)) {
+            holder.binding.book.setVisibility(View.GONE);
+            holder.binding.ratingLayout.setVisibility(View.GONE);
         }
         holder.binding.placeTypeAwayTv.setText(String.format("%s км от теб", poi.getDistanceKm()));
         holder.itemView.setOnClickListener(v -> mPlaceClickListener.onPlaceClick(poi));

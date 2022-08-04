@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     private static final Geopoint HISAR_LOC = new Geopoint(42.5041069, 24.7034471);
     private static final Geopoint PIRO_LOC = new Geopoint(45.9961283, 27.2476761);
     private List<Poi> combinedPois;
+    private Address currentAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setCancelable(false);
-        mProgressDialog.setMessage("Loading application data...");
+        mProgressDialog.setMessage(getString(R.string.loading_data));
         mProgressDialog.show();
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -197,6 +198,11 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     }
 
     void bindViews() {
+        binding.appBarTitle.setText(getString(R.string.title_activity_main));
+        binding.nearbyTv.setText(getString(R.string.nearby_places));
+        binding.exploreNearbyBtn.setText(getString(R.string.explore_nearby));
+        binding.blogTipsTv.setText(getString(R.string.news));
+
         binding.mapTv.setText(getString(R.string.title_activity_map));
         binding.mapBtn.setOnClickListener(v -> startActivity(new Intent(this, MapActivity.class)));
         binding.migTv.setText(getString(R.string.title_activity_about));
@@ -377,6 +383,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
                         }
                     }
+                    currentAddress = address;
                     viewModel.getCurrentWeather(address.getLocality());
                     binding.cityLocationTv.setText(String.format("%s, %s", address.getLocality(), address.getCountryName()));
                 }
@@ -500,7 +507,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == SETTINGS_ACTIVITY) {
             if (resultCode == Activity.RESULT_FIRST_USER) {
-                finish();
+                recreate();
             }
         }
     }
@@ -508,6 +515,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     @Override
     public void onRefresh() {
         getData();
+        viewModel.getCurrentWeather(currentAddress != null ? currentAddress.getLocality() : null);
         binding.swiperefresh.setRefreshing(false);
     }
 

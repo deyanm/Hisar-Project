@@ -3,6 +3,8 @@ package com.example.mig.ui.fragments;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -67,6 +69,7 @@ public class SlideShowFragment extends DialogFragment implements GalleryStripAda
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         //initialise GalleryItems List
         galleryItems = new ArrayList<>();
         if (getArguments() != null) {
@@ -235,6 +238,12 @@ public class SlideShowFragment extends DialogFragment implements GalleryStripAda
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // TODO Add your menu entries here
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
 }

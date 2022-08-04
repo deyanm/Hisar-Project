@@ -28,13 +28,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <com.google.android.material.textview.MaterialTextView
+                <TextView
                     android:id="@+id/appBarTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_gravity="bottom"
-                    android:fontFamily="@font/roboto"
                     android:text="@string/title_activity_main"
                     android:textColor="@color/black"
                     android:textSize="32sp"

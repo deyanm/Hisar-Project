@@ -1,5 +1,6 @@
 package com.example.mig.ui.fragments;
 
+import android.app.Activity;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -97,14 +98,7 @@ public class SettingsLanguageFragment extends Fragment {
             String langCode = String.valueOf(view.findViewById(checkedId).getTag());
             viewModel.setLangLocale(langCode);
             Locale locale = new Locale(langCode);
-            Locale.setDefault(locale);
-            Resources resources = getActivity().getResources();
-            Configuration config = resources.getConfiguration();
-            config.setLocale(locale);
-            resources.updateConfiguration(config, resources.getDisplayMetrics());
-            getActivity().getBaseContext().getResources().updateConfiguration(config, getActivity().getBaseContext().getResources().getDisplayMetrics());
-            getActivity().invalidateOptionsMenu();
-            getActivity().onConfigurationChanged(config);
+            updateLocaleConf(locale);
             updateUI(toolbar);
         });
 
@@ -113,11 +107,7 @@ public class SettingsLanguageFragment extends Fragment {
                 viewModel.setLangLocale("AUTO");
                 binding.changeLangGroup.setVisibility(View.GONE);
                 Locale systemLocale = ConfigurationCompat.getLocales(Resources.getSystem().getConfiguration()).get(0);
-                Locale.setDefault(systemLocale);
-                Resources resources = getActivity().getResources();
-                Configuration config = resources.getConfiguration();
-                config.setLocale(systemLocale);
-                resources.updateConfiguration(config, resources.getDisplayMetrics());
+                updateLocaleConf(systemLocale);
                 updateUI(toolbar);
             } else {
                 binding.changeLangGroup.setVisibility(View.VISIBLE);
@@ -135,5 +125,17 @@ public class SettingsLanguageFragment extends Fragment {
         binding.bgRadio.setText(getString(R.string.bulgarian));
         binding.enRadio.setText(getString(R.string.english));
         binding.switchTv.setText(getString(R.string.auto_lang));
+    }
+
+    private void updateLocaleConf(Locale locale) {
+        Locale.setDefault(locale);
+        Resources resources = getActivity().getResources();
+        Configuration config = resources.getConfiguration();
+        config.setLocale(locale);
+        resources.updateConfiguration(config, resources.getDisplayMetrics());
+        getActivity().getBaseContext().getResources().updateConfiguration(config, getActivity().getBaseContext().getResources().getDisplayMetrics());
+        getActivity().invalidateOptionsMenu();
+        getActivity().onConfigurationChanged(config);
+        getActivity().setResult(Activity.RESULT_FIRST_USER);
     }
 }

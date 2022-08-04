@@ -142,19 +142,9 @@ public class GalleryActivity extends AppCompatActivity implements GalleryAdapter
         if (item.getItemId() == R.id.settings) {
             startActivity(new Intent(this, SettingsActivity.class));
         } else if (item.getItemId() == android.R.id.home) {
-            finish();
+            onBackPressed();
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onBackPressed() {
-        // close search view on back button pressed
-//        if (!searchView.isIconified()) {
-//            searchView.setIconified(true);
-//            return;
-//        }
-        super.onBackPressed();
     }
 
     @Override

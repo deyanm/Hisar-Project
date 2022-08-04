@@ -84,4 +84,5 @@
     <string name="choose_filters">Filtre</string>
     <string name="my_location">Locatia mea</string>
     <string name="filters">Fel</string>
+    <string name="loading_data">Se încarcă datele aplicației...</string>
 </resources>

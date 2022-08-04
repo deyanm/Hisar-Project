@@ -3,6 +3,9 @@ package com.example.mig.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import io.reactivex.rxjava3.annotations.Nullable;
+
+@Nullable
 public class HisarResponse {
 
     @SerializedName("bg")

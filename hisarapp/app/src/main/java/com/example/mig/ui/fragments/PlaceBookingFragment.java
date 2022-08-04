@@ -68,7 +68,20 @@ public class PlaceBookingFragment extends Fragment {
         binding.locTv.setText(poi.getAddress());
         binding.descTv.setText(poi.getShortDescription());
         binding.phoneTv.setText(poi.getPhone());
+        binding.phoneTv.setOnClickListener(v -> {
+            if (poi.getPhone() != null) {
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:" + poi.getPhone()));
+                startActivity(callIntent);
+            }
+        });
         binding.websiteTv.setText(poi.getUrl());
+        binding.websiteTv.setOnClickListener(v -> {
+            if (poi.getUrl() != null) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(poi.getUrl()));
+                startActivity(browserIntent);
+            }
+        });
         binding.directionsBtn.setOnClickListener(v -> {
             Uri gmmIntentUri = Uri.parse("google.navigation:q=" + poi.getLocation().getLat() + "," + poi.getLocation().getLon());
             Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
